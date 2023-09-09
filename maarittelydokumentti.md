@@ -24,6 +24,6 @@ Tietojenkäsittelytieteen kandidaatti
 
 # Lähteet
 
-https://cis.temple.edu/~vasilis/Courses/CIS603/Lectures/l7.html
-https://en.wikipedia.org/wiki/Minimax
-https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
+- https://cis.temple.edu/~vasilis/Courses/CIS603/Lectures/l7.html
+- https://en.wikipedia.org/wiki/Minimax
+- https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
