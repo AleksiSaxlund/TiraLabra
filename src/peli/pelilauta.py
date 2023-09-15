@@ -1,6 +1,7 @@
 
 class Pelilauta():
     def __init__(self, pelaajan_merkki: str, ai_vs_ai: bool):
+        self.laudan_koko = 25
         if not ai_vs_ai:
             self.nappulat(pelaajan_merkki)
         
@@ -14,18 +15,26 @@ class Pelilauta():
 
     def pelilauta(self):
         self.lauta = []
-        for i in range(25):
-            self.lauta.append(["_" for j in range(25)])
+        #self.lauta.append([str(n) for n in range(1, 25)])
+        for i in range(self.laudan_koko):
+            rivi = [] #[str(i + 1)]
+            ([rivi.append("_") for j in range(self.laudan_koko)])
+            self.lauta.append(rivi)
     
-    def siirto(self, x: int, y: int, nappula: str):
-        if x >= 25 or y >= 25 or x < 0 or y < 0 or self.lauta[x][y] != "_":
-            return False
-        
-        self.lauta[x][y] = nappula
-        return True
+    def siirto(self, koordinaatit: str, nappula: str):
+        if " " in koordinaatit:
+            siirto = koordinaatit.split(" ")
+            if siirto[0].isnumeric() and siirto[1].isnumeric():
+                x, y = int(siirto[0]) - 1, int(siirto[1]) - 1
+
+                if x < self.laudan_koko and y < self.laudan_koko and x >= 0 and y >= 0 and self.lauta[x][y] == "_":
+                    self.lauta[x][y] = nappula
+                    return True
+
+        return False
 
 
-if True:
+if False:
     asd = Pelilauta("X", False)
     print(asd.siirto(16, 5, "X"))
     print(asd.siirto(16, 5, "Y"))
