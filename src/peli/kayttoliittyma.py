@@ -6,7 +6,7 @@ class Kayttoliittyma():
     def alku(self):
         print("Valitse nappulasi: (X tai O)")
         while True:
-            nappula = input("")
+            nappula = "X"#input("")
 
             if nappula == "X":
                 self.tulosta_tyhjää()

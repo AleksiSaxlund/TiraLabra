@@ -16,10 +16,12 @@ class PeliMoottori():
         vuoro = 1
 
         while True:
-
-            if self.voiton_tarkistin():
+            print(vuoro)
+            voitto = self.voiton_tarkistin()
+            if voitto == "X" or voitto == "Y":
                 # palauttaa voittajan merkin?? None jos ei voittajaa
-                pass
+                print("voitto")
+                break
 
             self.kayttoliittyma.tulosta_pelilauta(self.pelilauta.lauta)
             
@@ -57,8 +59,66 @@ class PeliMoottori():
             onnistunut = False
     
     def voiton_tarkistin(self):
-        pass
+        x, y = self.pelilauta.viimeisin_siirto
+        print(self.pelilauta.viimeisin_siirto)
+        lauta = self.pelilauta.lauta
+        # vaaka
+        for i in range(1,6):
+            if y - 5 + i >= 0 and y + i <= 25:
+                jono = lauta[x][y - 5 + i : y + i]
+                if len(set(jono)) == 1:
+                    return lauta[x][y]
+                
+        # pysty
+        for i in range(1, 6):
+            jono = []
+            if x - 5 + i >= 0:
+                for j in range(5):
+                    if x + i <= 25:
+                        jono.append(lauta[x - 5 + i + j][y])
+                    else:
+                        break
+
+            if len(set(jono)) == 1 and "_" not in jono and len(jono) == 5:
+                return lauta[x][y]
+
+        #diagonaali vasemmalta alaspäin
+        #
+        # VIELÄ BUGEJA V
+        #
+        for i in range(1, 6):
+            jono = []
+            if x - 5 + i >= 0:
+                for j in range(5):
+                    if x + i <= 24 and y + j <= 24:
+                        #print(x - 5 + i + j, y - 5 + i + j, x + i)
+                        jono.append(lauta[x - 5 + i + j][y - 5 + i + j])
+                    else:
+                        break
+
+            if len(set(jono)) == 1 and "_" not in jono and len(jono) == 5:
+                return lauta[x][y]
+
+        # diagonaali vasemmalta ylös
+        for i in range(1, 6):
+            jono = []
+            if x - i >= 0 and y + i <= 24:
+                for j in range(5):
+                    if x + 5 - i <= 24 and y - 5 + i >= 0:
+                        jono.append(lauta[x + 5 - i - j][y - 5 + i + j])
+                    else:
+                        break
+
+                if len(set(jono)) == 1 and "_" not in jono and len(jono) == 5:
+                    return lauta[x][y]
+
+        return False
 
 
+a = [i for i in range(20)]
+y = 7
+for i in range(1,6):
+    jono = a[y-5+i : y+i]
+    print(jono)
             
 asd = PeliMoottori()

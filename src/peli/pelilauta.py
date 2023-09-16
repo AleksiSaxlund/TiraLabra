@@ -2,6 +2,7 @@
 class Pelilauta():
     def __init__(self, pelaajan_merkki: str, ai_vs_ai: bool):
         self.laudan_koko = 25
+        self.viimeisin_siirto = 1, 1
         if not ai_vs_ai:
             self.nappulat(pelaajan_merkki)
         
@@ -29,6 +30,7 @@ class Pelilauta():
 
                 if x < self.laudan_koko and y < self.laudan_koko and x >= 0 and y >= 0 and self.lauta[x][y] == "_":
                     self.lauta[x][y] = nappula
+                    self.viimeisin_siirto = x, y
                     return True
 
         return False
