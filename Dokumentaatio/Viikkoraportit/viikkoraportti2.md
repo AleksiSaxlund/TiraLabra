@@ -1,6 +1,7 @@
 # Viikkoraportti 2
 
 ## Tällä viikolla
+
 - Lisätty Poetry projektiin ja pytest lisätty.
 - Luotu peli itsessään kutakuinkin pelattavaan kuntoon.
 - Luotu jonkin verran testejä pelille.

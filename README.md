@@ -1,5 +1,8 @@
 ## Dokumentaatio
 
+## Määrittelydokumentti
+
+- [Määrittelydokumentti](/Dokumentaatio/maarittelydokumentti.md)
 
 ### Viikkoraportit
 - [Viikkoraportti 1](/Dokumentaatio/Viikkoraportit/viikkoraportti1.md)
