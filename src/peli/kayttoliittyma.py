@@ -7,15 +7,13 @@ class Kayttoliittyma():
         print("Valitse nappulasi: (X tai O)")
         while True:
             nappula = "X"#input("")
+            self.tulosta_tyhjää()
 
             if nappula == "X":
-                self.tulosta_tyhjää()
                 return "X"
             elif nappula == "O":
-                self.tulosta_tyhjää()
                 return "O"
 
-            print()
             print("Vääränlainen syöte.")
             print('Kirjoita joko "X" tai "O" (Iso Oo kirjain)')
     
