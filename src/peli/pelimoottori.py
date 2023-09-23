@@ -1,16 +1,13 @@
-import kayttoliittyma
-import pelilauta
+from peli.kayttoliittyma import Kayttoliittyma
+from peli.pelilauta import Pelilauta
 from random import randint
 
 class PeliMoottori():
     def __init__(self):
-        self.kayttoliittyma = kayttoliittyma.Kayttoliittyma()
-        self.pelaaja = self.pelin_alku()
-        self.pelilauta = pelilauta.Pelilauta(self.pelaaja, False)
+        self.kayttoliittyma = Kayttoliittyma()
+        self.pelaaja = self.kayttoliittyma.alku()
+        self.pelilauta = Pelilauta(self.pelaaja, False)
         self.peli_kierros()
-
-    def pelin_alku(self):
-        return self.kayttoliittyma.alku()
 
     def peli_kierros(self):
         vuoro = 1
@@ -18,9 +15,8 @@ class PeliMoottori():
         while True:
             print(vuoro)
             voitto = self.voiton_tarkistin()
-            if voitto == "X" or voitto == "Y":
-                # palauttaa voittajan merkin?? None jos ei voittajaa
-                print("voitto")
+            if voitto == "X" or voitto == "O":
+                print("voitto", voitto)
                 break
 
             self.kayttoliittyma.tulosta_pelilauta(self.pelilauta.lauta)
@@ -83,15 +79,11 @@ class PeliMoottori():
                 return lauta[x][y]
 
         #diagonaali vasemmalta alaspäin
-        #
-        # VIELÄ BUGEJA V
-        #
         for i in range(1, 6):
             jono = []
             if x - 5 + i >= 0:
                 for j in range(5):
-                    if x + i <= 24 and y + j <= 24:
-                        #print(x - 5 + i + j, y - 5 + i + j, x + i)
+                    if x + i <= 25 and y + j <= 24:
                         jono.append(lauta[x - 5 + i + j][y - 5 + i + j])
                     else:
                         break
@@ -102,7 +94,7 @@ class PeliMoottori():
         # diagonaali vasemmalta ylös
         for i in range(1, 6):
             jono = []
-            if x - i >= 0 and y + i <= 24:
+            if x - i >= -1 and y + i <= 25:
                 for j in range(5):
                     if x + 5 - i <= 24 and y - 5 + i >= 0:
                         jono.append(lauta[x + 5 - i - j][y - 5 + i + j])
@@ -114,11 +106,5 @@ class PeliMoottori():
 
         return False
 
-
-a = [i for i in range(20)]
-y = 7
-for i in range(1,6):
-    jono = a[y-5+i : y+i]
-    print(jono)
             
 asd = PeliMoottori()
