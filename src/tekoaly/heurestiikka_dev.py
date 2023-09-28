@@ -6,7 +6,7 @@ def etsi_jonot(lauta):
     # vaaka tarkistus
     for i in range(n):
         for j in range(n - 4):
-            jono = lauta[i][j : j + 5]
+            jono = lauta[i][j: j + 5]
 
     # pysty tarkistus
     for i in range(n):
@@ -14,7 +14,7 @@ def etsi_jonot(lauta):
             jono = []
             for x in range(5):
                 jono.append(lauta[j + x][i])
-    
+
     # diagonaali vasemmalta alas tarkistus
     for i in range(n - 4):
         for j in range(n - 4):
@@ -28,6 +28,7 @@ def etsi_jonot(lauta):
             jono = []
             for x in range(5):
                 jono.append(lauta[i + x][j - x])
+
 
 def arvioi_jono(jono, koordinaatti1: tuple, koordinaatti2: tuple):
     pass

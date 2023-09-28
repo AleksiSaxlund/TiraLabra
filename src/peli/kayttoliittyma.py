@@ -6,7 +6,7 @@ class Kayttoliittyma():
     def alku(self):
         print("Valitse nappulasi: (X tai O)")
         while True:
-            nappula = "X"#input("")
+            nappula = "X"  # input("")
             self.tulosta_tyhjää()
 
             if nappula == "X":
@@ -16,13 +16,13 @@ class Kayttoliittyma():
 
             print("Vääränlainen syöte.")
             print('Kirjoita joko "X" tai "O" (Iso Oo kirjain)')
-    
+
     def tulosta_pelilauta(self, pelilauta: list):
         self.tulosta_tyhjää()
         for rivi in pelilauta:
             hieno_rivi = "".join(rivi)
             print(hieno_rivi)
-    
+
     def pelaajan_siirto_syote(self, onnistunut: bool):
         if onnistunut:
             print("Kirjoita ruudun koordinaatit johon tahdot tehdä seuraavan siirtosi.")

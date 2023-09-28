@@ -1,0 +1,3 @@
+[run]
+source = src
+omit = src/**/__init__.py,src/testit/**,src/kayttoliittyma.py,src/main.py,src/tekoaly/heurestiikka_temp.py
