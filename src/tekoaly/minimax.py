@@ -116,4 +116,5 @@ lauta = [["_", "_", "_"],
          ["_", "_", "_"]]
 
 asd = MiniMax(lauta, "X")
+    # MiniMax(lauta, "JOS PELAAJA ON X SYÖTÄ O JA TOISIN PÄIN")
 print(asd.valitse_paras_siirto())
