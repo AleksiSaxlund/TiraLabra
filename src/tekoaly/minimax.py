@@ -1,4 +1,5 @@
-from heurestiikka_temp import heurestiikka
+from time import time
+from heurestiikka import arvioi
 
 
 class MiniMax():
@@ -6,6 +7,7 @@ class MiniMax():
     """
 
     def __init__(self, lauta, pelaaja):
+        self.n = len(lauta)
         self.lauta = lauta
         self.minivoitava = pelaaja
         if self.minivoitava == "X":
@@ -21,17 +23,18 @@ class MiniMax():
         Returns:
             tuple: Palauttaa parhaan siirron koordinaatit.
         """
-        paras_arvo = -1000
+        paras_arvo = -10**6
         paras_siirto = (-1, -1)
 
-        for i in range(3):
-            for j in range(3):
+        for i in range(self.n):
+            for j in range(self.n):
 
                 if self.lauta[i][j] == "_":
+                    print(i, j)
 
                     self.lauta[i][j] = self.maksivoitava
 
-                    siirron_arvo = self.minimax(self.lauta, 0, self.vuoro)
+                    siirron_arvo = self.minimax(self.lauta, 0, -10**5, 10**5, self.vuoro)
 
                     self.lauta[i][j] = "_"
 
@@ -50,12 +53,12 @@ class MiniMax():
         Returns:
             bool: True, jos on siirtoja, False jos ei.
         """
-        for i in range(3):
+        for i in range(self.n-1):
             if "_" in lauta[i]:
                 return True
         return False
 
-    def minimax(self, lauta, syvyys, vuoro):
+    def minimax(self, lauta, syvyys, alpha, beta, vuoro):
         """Minimaxin rekursiivinen funktio itsessään.
 
         Args:
@@ -66,55 +69,84 @@ class MiniMax():
         Returns:
             int: Palauttaa siirron arvon.
         """
-        arvo = heurestiikka(lauta, self.maksivoitava, self.minivoitava)
+        if vuoro == 1:
+            arvo = arvioi(lauta, self.maksivoitava)
+        else:
+            arvo = -arvioi(lauta, self.minivoitava)
+        
 
-        if arvo == 10:
+        if arvo == 10**5:
             return arvo - syvyys
-        if arvo == -10:
+        if arvo == -10**5:
             return arvo + syvyys
+
+        if syvyys >= 3:
+            return arvo
 
         if not self.siirtoja_jaljella(lauta):
             return 0
 
         if vuoro == 1:
-            paras = -1000
+            paras = -10**5
 
-            for i in range(3):
-                for j in range(3):
+            for i in range(self.n):
+                for j in range(self.n):
 
                     if lauta[i][j] == "_":
                         lauta[i][j] = self.maksivoitava
 
-                        arvo = self.minimax(lauta, syvyys+1, vuoro*-1)
+                        arvo = self.minimax(lauta, syvyys+1, alpha, beta, vuoro*-1)
 
-                        if arvo > paras:
-                            paras = arvo
+                        paras = max(arvo, paras)
+                        alpha = max(alpha, arvo)
 
                         lauta[i][j] = "_"
+                        if beta <= alpha:
+                            break
+
             return paras
 
         else:
-            paras = 1000
+            paras = 10**5
 
-            for i in range(3):
-                for j in range(3):
+            for i in range(self.n):
+                for j in range(self.n):
 
                     if lauta[i][j] == "_":
                         lauta[i][j] = self.minivoitava
 
-                        arvo = self.minimax(lauta, syvyys, vuoro*-1)
+                        arvo = self.minimax(lauta, syvyys, alpha, beta, vuoro*-1)
 
-                        if arvo < paras:
-                            paras = arvo
+                        paras = min(arvo, paras)
+                        beta = min(beta, arvo)
 
                         lauta[i][j] = "_"
+                        if beta <= alpha:
+                            break
             return paras
 
+alku = time()
+if False:
+    lauta = [["_", "_", "_"],
+            ["_", "X", "_"],
+            ["_", "_", "_"]]
+else:
+    lauta = [["_", "_", "_", "_", "_", "X"],
+             ["X", "O", "O", "O", "X", "X"],
+             ["X", "O", "O", "X", "O", "_"],
+             ["O", "X", "X", "X", "X", "_"],
+             ["_", "O", "O", "X", "O", "O"],
+             ["O", "_", "X", "X", "X", "_"]]
+             #["_", "_", "_", "_", "_", "_", "_"],
+             #["_", "_", "_", "_", "_", "_", "_"]]
+             #["_", "_", "_", "_", "_", "_", "_", "_", "_", "_"],
+             #["_", "_", "_", "_", "_", "_", "_", "_", "_", "_"],
+             #["_", "_", "_", "_", "_", "_", "_", "_", "_", "_"]]
 
-lauta = [["_", "_", "_"],
-         ["_", "_", "_"],
-         ["_", "_", "_"]]
-
-asd = MiniMax(lauta, "X")
+asd = MiniMax(lauta, "O")
     # MiniMax(lauta, "JOS PELAAJA ON X SYÖTÄ O JA TOISIN PÄIN")
-print(asd.valitse_paras_siirto())
+siirto = asd.valitse_paras_siirto()
+loppu = time()
+
+print("Aikaa meni:", loppu - alku)
+print(siirto)
