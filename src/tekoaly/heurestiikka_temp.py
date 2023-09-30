@@ -1,4 +1,6 @@
 
+# Tämä tullaan poistamaan kokonaan.
+
 def heurestiikka(lauta, maksivoitava, minivoitava):
     # Checking for Rows for X or O victory.
     for row in range(3):

@@ -7,4 +7,6 @@ Yksikkötestausta toteutettu pelilauta-luokalle. Tulevaisuudessa yksikkötestaus
 
 ## Manuaalitestaus
 
-Kaikkia [peli](/src/peli/) kansion luokkia ja niiden yhteistoimintaa on testattu manuaalisesti. Minimaxin toimintaa on myös testattu manuaalisesti, mutta toistaiseksi vain 3x3 pelilaudalla ja väliaikaisella heurestiikkafunktiolla.
+Kaikkia [peli](/src/peli/) kansion luokkia ja niiden yhteistoimintaa on testattu manuaalisesti.
+
+Minimax luokkaa ja heurestiikka funktiota on toistaiseksi testattu vain manuaalisesti. Minimax ei myöskään toimi toistaiseksi täysin oikein.
