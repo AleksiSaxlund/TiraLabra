@@ -1,6 +1,7 @@
 from random import randint
 from peli.kayttoliittyma import Kayttoliittyma
 from peli.pelilauta import Pelilauta
+from tekoaly.minimax import MiniMax
 
 
 class PeliMoottori():
@@ -11,6 +12,7 @@ class PeliMoottori():
         self.kayttoliittyma = Kayttoliittyma()
         self.pelaaja = self.kayttoliittyma.alku()
         self.pelilauta = Pelilauta(self.pelaaja, False)
+        self.tekoaly = MiniMax(self.pelilauta.lauta, self.pelaaja)
         self.peli_kierros()
 
     def peli_kierros(self):
@@ -46,20 +48,25 @@ class PeliMoottori():
         while True:
             syote = self.kayttoliittyma.pelaajan_siirto_syote(onnistunut)
 
-            if self.pelilauta.siirto(syote, self.pelaaja):
+            if " " in syote:
+                siirto = syote.split(" ")
+                if len(list(siirto)) == 2:
+                    if siirto[0].isnumeric() and siirto[1].isnumeric():
+                        x, y = int(siirto[0]) - 1, int(siirto[1]) - 1
+
+            if self.pelilauta.siirto(x, y, self.pelaaja):
+                self.tekoaly.lisaa_varattu_paikka(x, y)
                 break
             onnistunut = False
 
     def tekoalyn_vuoro(self):
         """Väliaikainen "tekoälyn" vuoro.
         """
-        onnistunut = True
-        while True:
+        tekoalyn_siirto = self.tekoaly.valitse_paras_siirto()
 
-            # huippu temp tekoäly!!
-            if self.pelilauta.siirto(f"{randint(0, 25)} {randint(0, 25)}", self.pelilauta.vihu):
-                break
-            onnistunut = False
+        self.tekoaly.lisaa_varattu_paikka(tekoalyn_siirto[0], tekoalyn_siirto[1])
+
+        self.pelilauta.siirto(tekoalyn_siirto[0], tekoalyn_siirto[1], self.pelilauta.vihu)
 
     def voiton_tarkistin(self):
         """Tarkastaa onko pelilaudalle tullut voittoa.

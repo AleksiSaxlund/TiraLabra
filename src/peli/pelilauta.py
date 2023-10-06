@@ -32,7 +32,7 @@ class Pelilauta():
             ([rivi.append("_") for j in range(self.laudan_koko)])
             self.lauta.append(rivi)
 
-    def siirto(self, koordinaatit: str, nappula: str):
+    def siirto(self, x: str , y: str, nappula: str):
         """Tekee siirron pelilaudalle. Varmistaa ensin, että siirto on laillinen.
             Muokkaa myös pelaajan syötteen sopivaan formaattiin.
 
@@ -44,16 +44,11 @@ class Pelilauta():
             bool: True, jos onnistuis. False, jos ei.
         """
         if nappula in ("X", "O"):
-            if " " in koordinaatit:
-                siirto = koordinaatit.split(" ")
-                if len(list(siirto)) == 2:
-                    if siirto[0].isnumeric() and siirto[1].isnumeric():
-                        x, y = int(siirto[0]) - 1, int(siirto[1]) - 1
 
-                        if x < self.laudan_koko and y < self.laudan_koko and x >= 0 and y >= 0 and self.lauta[x][y] == "_":
-                            self.lauta[x][y] = nappula
-                            self.viimeisin_siirto = x, y
-                            return True
+            if x < self.laudan_koko and y < self.laudan_koko and x >= 0 and y >= 0 and self.lauta[x][y] == "_":
+                self.lauta[x][y] = nappula
+                self.viimeisin_siirto = x, y
+                return True
 
         return False
 

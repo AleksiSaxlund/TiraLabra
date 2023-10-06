@@ -61,7 +61,10 @@ def arvioi_vaakasuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
             
             if (lauta[x][y] == "_" or y == n - 1) and valiarvo != 0 :
                 if auki_alussa and valiarvo != 1 and y != n - 1:
-                    laudan_arvo += valiarvo * valiarvo * valiarvo
+                    if valiarvo >= 3:
+                        laudan_arvo += valiarvo * 100
+                    else:
+                        laudan_arvo += valiarvo * valiarvo * valiarvo
                 else:
                     laudan_arvo += valiarvo * valiarvo
                 auki_alussa = True
@@ -104,7 +107,10 @@ def arvioi_pystysuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
             
             if (lauta[y][x] == "_" or y == n - 1) and valiarvo != 0 :
                 if auki_alussa and valiarvo != 1 and y != n - 1:
-                    laudan_arvo += valiarvo * valiarvo * valiarvo
+                    if valiarvo >= 3:
+                        laudan_arvo += valiarvo * 100
+                    else:
+                        laudan_arvo += valiarvo * valiarvo * valiarvo
                 else:
                     laudan_arvo += valiarvo * valiarvo
                 auki_alussa = True
@@ -178,9 +184,12 @@ def arvioi_yksi_diagonaali_vasemmalta_alas(lauta: list, n: int, aloitus_x: int, 
             
             if lauta[j + aloitus_x][j + aloitus_y] == "_" and valiarvo != 0 :
                 if auki_alussa and valiarvo != 1 and j + aloitus_x < n:
-                    valiarvo += valiarvo * valiarvo * valiarvo
+                    if valiarvo >= 3:
+                        rivin_arvo += valiarvo * 100
+                    else:
+                        rivin_arvo += valiarvo * valiarvo * valiarvo
                 else:
-                    valiarvo += valiarvo * valiarvo
+                    rivin_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
 
@@ -260,9 +269,12 @@ def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, 
             
             if lauta[n - 1 - j - aloitus_x][j + aloitus_y] == "_" and valiarvo != 0 :
                 if auki_alussa and valiarvo != 1 and j + aloitus_y < n:
-                    valiarvo += valiarvo * valiarvo * valiarvo
+                    if valiarvo >= 3:
+                        rivin_arvo += valiarvo * 100
+                    else:
+                        rivin_arvo += valiarvo * valiarvo * valiarvo
                 else:
-                    valiarvo += valiarvo * valiarvo
+                    rivin_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
 

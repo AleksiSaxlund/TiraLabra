@@ -2,13 +2,9 @@
 
 ## Käyttöohjeet
 
-Peliä itsessään ja tekoälyä ei ole vielä kiinnitetty toisiinsa.
-
 Pelin voi käynnistää ajamalla [main.py](/src/main.py) tiedoston.
 
-Tekoälylle taas ei ole käyttöliittymää. Sitä voi testailla [minimax.py](/src/tekoaly/minimax.py) Tiedostossa. Tiedoston pohjalla on kovakoodattuna pelilauta ja peliä voi "pelata" syöttämällä oman siirron laudalle ja ajamalla tiedoston, jonka jälkeen tulostetaan tekoälyn siirto.
-
-Tekoäly on vielä keskeneräinen, joten bugeja riittää ja se on erittäin hidas.
+Tekoäly on vielä keskeneräinen, joten se on ajoittain tyhmä ja saattaa olla myös erittäin hidas joissain tapauksissa.
 
 ## Dokumentaatiota
 
@@ -21,3 +17,4 @@ Tekoäly on vielä keskeneräinen, joten bugeja riittää ja se on erittäin hid
 - [Viikkoraportti 2](/Dokumentaatio/Viikkoraportit/viikkoraportti2.md)
 - [Viikkoraportti 3](/Dokumentaatio/Viikkoraportit/viikkoraportti3.md)
 - [Viikkoraportti 4](/Dokumentaatio/Viikkoraportit/viikkoraportti4.md)
+- [Viikkoraportti 5](/Dokumentaatio/Viikkoraportit/viikkoraportti5.md)
