@@ -61,9 +61,9 @@ def arvioi_vaakasuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
             
             if (lauta[x][y] == "_" or y == n - 1) and valiarvo != 0 :
                 if auki_alussa and valiarvo != 1 and y != n - 1:
-                    laudan_arvo += 2 * valiarvo
+                    laudan_arvo += valiarvo * valiarvo * valiarvo
                 else:
-                    laudan_arvo += valiarvo
+                    laudan_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
 
@@ -98,15 +98,15 @@ def arvioi_pystysuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
 
             elif lauta[y][x] == vastustaja:
                 if auki_alussa:
-                    laudan_arvo += valiarvo
+                    laudan_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
             
             if (lauta[y][x] == "_" or y == n - 1) and valiarvo != 0 :
                 if auki_alussa and valiarvo != 1 and y != n - 1:
-                    laudan_arvo += 2 * valiarvo
+                    laudan_arvo += valiarvo * valiarvo * valiarvo
                 else:
-                    laudan_arvo += valiarvo
+                    laudan_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
 
@@ -172,15 +172,15 @@ def arvioi_yksi_diagonaali_vasemmalta_alas(lauta: list, n: int, aloitus_x: int, 
 
             elif lauta[j + aloitus_x][j + aloitus_y] == vastustaja:
                 if auki_alussa:
-                    rivin_arvo += valiarvo
+                    rivin_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
             
             if lauta[j + aloitus_x][j + aloitus_y] == "_" and valiarvo != 0 :
                 if auki_alussa and valiarvo != 1 and j + aloitus_x < n:
-                    rivin_arvo += 2 * valiarvo
+                    valiarvo += valiarvo * valiarvo * valiarvo
                 else:
-                    rivin_arvo += valiarvo
+                    valiarvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
 
@@ -189,7 +189,7 @@ def arvioi_yksi_diagonaali_vasemmalta_alas(lauta: list, n: int, aloitus_x: int, 
 
         else:
             if auki_alussa:
-                rivin_arvo += valiarvo
+                rivin_arvo += valiarvo * valiarvo
             valiarvo = 0    
             break
 
@@ -254,15 +254,15 @@ def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, 
 
             elif lauta[n - 1 - j - aloitus_x][j + aloitus_y] == vastustaja:
                 if auki_alussa:
-                    rivin_arvo += valiarvo
+                    rivin_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
             
             if lauta[n - 1 - j - aloitus_x][j + aloitus_y] == "_" and valiarvo != 0 :
                 if auki_alussa and valiarvo != 1 and j + aloitus_y < n:
-                    rivin_arvo += 2 * valiarvo
+                    valiarvo += valiarvo * valiarvo * valiarvo
                 else:
-                    rivin_arvo += valiarvo
+                    valiarvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
 
@@ -271,7 +271,7 @@ def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, 
 
         else:
             if auki_alussa:
-                rivin_arvo += valiarvo
+                rivin_arvo += valiarvo * valiarvo
             valiarvo = 0    
             break
 
@@ -279,15 +279,12 @@ def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, 
     return rivin_arvo
 
 
-#lauta = [["_", "_", "_", "_", "_", "_", "_", "_", "_", "_"],
-#         ["", "", "", "X", "", "", "", "", "", ""],
- #        ["", "", "X", "X", "X", "X", "", "", "", ""],
-  #       ["", "", "", "", "", "", "", "", "", ""],
-   #      ["", "X", "", "", "", "", "", "", "", ""],
-    #     ["", "", "", "", "O", "", "", "", "X", "X"],
-     #    ["", "X", "", "X", "", "", "", "X", "", ""],
-      #   ["", "", "X", "", "", "", "X", "", "", ""],
-       #  ["", "X", "", "", "", "", "", "", "", ""],
-        # ["X", "", "", "", "", "X", "", "", "", ""]]
+#lauta = [["O", "_", "_", "_", "O", "O"],
+ #        ["_", "_", "X", "X", "O", "_"],
+  #       ["O", "X", "X", "X", "X", "O"],
+   #      ["_", "X", "O", "O", "X", "_"],
+    #     ["X", "_", "O", "_", "_", "X"],
+     #    ["O", "_", "_", "_", "_", "_"]]
 
-#print(arvioi(lauta, "X"))
+#print(arvioi_vaakasuorat(lauta, len(lauta), "O", "X")) # 7
+#print(arvioi_vaakasuorat(lauta, len(lauta), "O", "X"))
