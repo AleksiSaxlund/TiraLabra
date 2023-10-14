@@ -36,4 +36,4 @@ class Kayttoliittyma():
         return siirto
 
     def tulosta_tyhjää(self):
-        [print() for i in range(5)]
+        [print() for i in range(1)]

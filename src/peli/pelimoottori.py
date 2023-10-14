@@ -1,4 +1,5 @@
 from random import randint
+from time import time
 from peli.kayttoliittyma import Kayttoliittyma
 from peli.pelilauta import Pelilauta
 from tekoaly.minimax import MiniMax
@@ -54,19 +55,23 @@ class PeliMoottori():
                     if siirto[0].isnumeric() and siirto[1].isnumeric():
                         x, y = int(siirto[0]) - 1, int(siirto[1]) - 1
 
-            if self.pelilauta.siirto(x, y, self.pelaaja):
-                self.tekoaly.lisaa_varattu_paikka(x, y)
-                break
+                        if self.pelilauta.siirto(x, y, self.pelaaja):
+                            self.tekoaly.lisaa_varattu_paikka(x, y)
+                            break
             onnistunut = False
 
     def tekoalyn_vuoro(self):
         """Väliaikainen "tekoälyn" vuoro.
         """
+        alku = time()
         tekoalyn_siirto = self.tekoaly.valitse_paras_siirto()
+        print(tekoalyn_siirto)
 
         self.tekoaly.lisaa_varattu_paikka(tekoalyn_siirto[0], tekoalyn_siirto[1])
 
         self.pelilauta.siirto(tekoalyn_siirto[0], tekoalyn_siirto[1], self.pelilauta.vihu)
+        loppu = time()
+        print("Aikaa meni:", loppu - alku)
 
     def voiton_tarkistin(self):
         """Tarkastaa onko pelilaudalle tullut voittoa.
