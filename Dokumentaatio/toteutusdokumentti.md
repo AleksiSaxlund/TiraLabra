@@ -89,14 +89,6 @@ sequenceDiagram
 
 Minimaxin aikavaativuus on O(mahdollisten siirtojen määrä^syvyys)ja alphabeetta karsinnalla se on O(mahdollisten siirtojen määrä^(syvyys/2)).
 
-Tässä toteutuksessa se ei kuitenkaan aina päde ja tarkkaa aika- tai tilavaativuutta ei ole mahdollista antaa säännöllisesti, sillä minimax-algoritmin toteutus laajentaa tutkittavaa aluetta jokaisella syvyydellä. Tämän vuoksi aikavaatimuksen hahmotelma olisi luokkaa O((n + x)^(s/2)), jossa:
-
-n = mahdollisten siirtojen määrä
-x = jokaisella puunhaaralla laajennettujen uusien mahdollisten siirtojen määrä
-s = syvyys
-
-Tämän myös huomaa suorituskykytestauksesta, jossa ilman alphabeetta karsintaa tehty syvyyden 5 testi antaa noin nelinkertaisen määrän käytyjä asemia, kuin O(n^s).
-
 Suorituskykytestauksen löytää [testausdokumentin](./testausdokumentti.md) *Suorituskykytestaus* osiosta.
 
 ## Kielimallien käyttö

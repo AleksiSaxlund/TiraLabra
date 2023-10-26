@@ -9,7 +9,7 @@ Pelin tarkoitus on tehdä omista merkeistä katkeamaton 5:n suora pelilaudalle. 
 Pelin voit käynnistää ajamalla seuraavat komennot projektin juurihakemistossa:
 
 1. ```poetry shell```
-2. ```python3 ./src/main.py```
+2. ```python ./src/main.py```
 
 Näin ohjelma aukeaa terminaaliin.
 
@@ -22,18 +22,9 @@ Nappulan valitsemisen jälkeen terminaaliin tulostuu pelilauta. Jos pelaaja on X
 Pelaaja voi vuorollaan tehdä siirron kirjoittamalla tahtomansa ruudun koordinaatit, kun niitä kysytään. Peli ei hyväksy väärässä formaatissa syötettyjä koordinaatteja.
 
 Esimerkkejä hyväksytyistä syötteistä (kaikki ilman lainausmerkkejä):
-"1 1"
-"10 1
-"4 20"
-"25 25"
-"15 15"
+"1 1", "10 1, "4 20","25 25" ja "15 15"
 
 Esimerkkejä hylätyistä syötteistä:
-"1 "
-"232"
-"-1 10"
-"1232 "
-"30 4"
-"10 0"
+"1 ", "232", "-1 10", "1232 ", "30 4" ja "10 0"
 
 Syötteen ensimmäinen luku on X-koordinaatti ja toinen luku on Y-koordinaatti. Koordinaattien indeksointi alkaa myös 1:stä, eli kumpikin koordinaatti voi olla luku 1-25.
