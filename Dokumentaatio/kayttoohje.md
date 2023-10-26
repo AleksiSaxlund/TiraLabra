@@ -9,7 +9,7 @@ Pelin tarkoitus on tehdä omista merkeistä katkeamaton 5:n suora pelilaudalle. 
 Pelin voit käynnistää ajamalla seuraavat komennot projektin juurihakemistossa:
 
 1. ```poetry shell```
-2. ```python3 ./src/main.py```
+2. ```python ./src/main.py```
 
 Näin ohjelma aukeaa terminaaliin.
 
