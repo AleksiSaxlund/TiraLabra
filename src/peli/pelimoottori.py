@@ -1,4 +1,3 @@
-from random import randint
 from time import time
 from peli.kayttoliittyma import Kayttoliittyma
 from peli.pelilauta import Pelilauta
@@ -49,15 +48,12 @@ class PeliMoottori():
         while True:
             syote = self.kayttoliittyma.pelaajan_siirto_syote(onnistunut)
 
-            if " " in syote:
-                siirto = syote.split(" ")
-                if len(list(siirto)) == 2:
-                    if siirto[0].isnumeric() and siirto[1].isnumeric():
-                        x, y = int(siirto[0]) - 1, int(siirto[1]) - 1
+            hyvaksytty, x, y = self.pelilauta.siirto(syote, self.pelaaja)
 
-                        if self.pelilauta.siirto(x, y, self.pelaaja):
-                            self.tekoaly.lisaa_varattu_paikka(x, y)
-                            break
+            if hyvaksytty:
+                self.tekoaly.lisaa_varattu_paikka(x, y)
+                break
+
             onnistunut = False
 
     def tekoalyn_vuoro(self):
@@ -69,7 +65,7 @@ class PeliMoottori():
 
         self.tekoaly.lisaa_varattu_paikka(tekoalyn_siirto[0], tekoalyn_siirto[1])
 
-        self.pelilauta.siirto(tekoalyn_siirto[0], tekoalyn_siirto[1], self.pelilauta.vihu)
+        self.pelilauta.lauta[tekoalyn_siirto[0]][tekoalyn_siirto[1]] = self.pelilauta.vihu
         loppu = time()
         print("Aikaa meni:", loppu - alku)
 

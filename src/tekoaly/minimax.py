@@ -1,5 +1,5 @@
 from time import time
-from math import inf, dist
+from math import inf
 from collections import deque
 from tekoaly.heurestiikka import arvioi
 
@@ -27,16 +27,20 @@ class MiniMax():
     def lisaa_varattu_paikka(self, x, y):
         self.varatut_paikat.append((x, y))
         self.tutkittavat_paikat = self.lisaa_tutkittavat_paikat(self.tutkittavat_paikat, self.varatut_paikat, True)
-        print("self.lisaa_varattu")
-        print(self.tutkittavat_paikat)
         self.siirtojen_maara += 1
     
     def lisaa_tutkittavat_paikat(self, tutkittavat_paikat, varatut_paikat, ensimmainen):
         paikka = varatut_paikat[-1]
-        a = False
-        if paikka == (-1,-1):
-            a = True
+
         if ensimmainen:
+            for i in range(-1, 2):
+                for j in range(-1, 2):
+                    if paikka[0] + i >= 0 and paikka[1] + j >= 0 and paikka[0] + i < self.n - 1 and paikka[1] + j < self.n - 1:
+                        if (paikka[0] + i, paikka[1] + j) in tutkittavat_paikat:
+                            tutkittavat_paikat.remove((paikka[0] + i, paikka[1] + j))
+                        if self.lauta[paikka[0] + i][paikka[1] + j] == "_" and (paikka[0] + i, paikka[1] + j) not in varatut_paikat:
+                            tutkittavat_paikat.appendleft((paikka[0] + i, paikka[1] + j))
+
             for i in range(-2, 3, 2):
                 for j in range(-2, 3, 2):
 
@@ -45,18 +49,6 @@ class MiniMax():
                             tutkittavat_paikat.remove((paikka[0] + i, paikka[1] + j))
                         if self.lauta[paikka[0] + i][paikka[1] + j] == "_" and (paikka[0] + i, paikka[1] + j) not in varatut_paikat:
                             tutkittavat_paikat.appendleft((paikka[0] + i, paikka[1] + j))
-                            if a:
-                                lauta[paikka[0]+i][paikka[1] + j] = "C"
-            
-            for i in range(-1, 2):
-                for j in range(-1, 2):
-                    if paikka[0] + i >= 0 and paikka[1] + j >= 0 and paikka[0] + i < self.n - 1 and paikka[1] + j < self.n - 1:
-                        if (paikka[0] + i, paikka[1] + j) in tutkittavat_paikat:
-                            tutkittavat_paikat.remove((paikka[0] + i, paikka[1] + j))
-                        if self.lauta[paikka[0] + i][paikka[1] + j] == "_" and (paikka[0] + i, paikka[1] + j) not in varatut_paikat:
-                            tutkittavat_paikat.appendleft((paikka[0] + i, paikka[1] + j))
-                            if a:
-                                lauta[paikka[0]+i][paikka[1] + j] = "C"
 
         else:
             for i in range(-1, 2):
@@ -66,15 +58,7 @@ class MiniMax():
                             tutkittavat_paikat.remove((paikka[0] + i, paikka[1] + j))
                         if self.lauta[paikka[0] + i][paikka[1] + j] == "_" and (paikka[0] + i, paikka[1] + j) not in varatut_paikat:
                             tutkittavat_paikat.appendleft((paikka[0] + i, paikka[1] + j))
-                            if a:
-                                lauta[paikka[0]+i][paikka[1] + j] = "C"
 
-        #for asd in tutkittavat_paikat:
-         #   for a in varatut_paikat:
-          #      if asd == a:
-           #         print(asd)
-            #        print(tutkittavat_paikat)
-             #       l = input("assda")
         return tutkittavat_paikat
 
     def valitse_paras_siirto(self):
@@ -85,17 +69,13 @@ class MiniMax():
         """
         paras_arvo = -inf
         paras_siirto = (-1, -1)
-        syvyys = 3
+        syvyys = 5
         self.loydetty = inf
-
-        print(self.tutkittavat_paikat)
-
+        self.asd = 0
         for paikka in self.tutkittavat_paikat:
             if self.lauta[paikka[0]][paikka[1]] == "_":
                 self.voitto_loytynyt = False
-                print(paikka, paikka in self.tutkittavat_paikat)
-                #print(tutkittavat_paikat)
-
+                print(paikka)
                 self.lauta[paikka[0]][paikka[1]] = self.maksivoitava
 
                 varatut_paikat_kopio = self.varatut_paikat[:]
@@ -115,8 +95,7 @@ class MiniMax():
                     paras_siirto = paikka
                     #if self.voitto_loytynyt:
                         #return self.voitto_siirto
-
-        print(paras_arvo)
+        print(self.asd)
         return paras_siirto
 
     def siirtoja_jaljella(self, syvyys):
@@ -229,13 +208,10 @@ class MiniMax():
             for paikka in tutkittavat_paikat:
 
                 if lauta[paikka[0]][paikka[1]] != "_":
-                    print(paikka)
-                    print(lauta[paikka[0]][paikka[1]])
-                    print(tutkittavat_paikat)
                     raise ValueError("Varattu ruutu")
                 else:
                     lauta[paikka[0]][paikka[1]] = self.maksivoitava
-
+                    self.asd += 1
                     varatut_paikat_kopio = varatut_paikat[:]
                     varatut_paikat_kopio.append((paikka))
                     tutkittavat_paikat_kopio = self.lisaa_tutkittavat_paikat(tutkittavat_paikat.copy(),
@@ -248,7 +224,7 @@ class MiniMax():
                     alpha = max(alpha, arvo)
 
                     lauta[paikka[0]][paikka[1]] = "_"
-                    if beta <= alpha or abs(paras) == 10**5:
+                    if abs(paras) == 10**5:#beta <= alpha or 
                         break
 
             return paras
@@ -259,13 +235,10 @@ class MiniMax():
             for paikka in tutkittavat_paikat:
 
                 if lauta[paikka[0]][paikka[1]] != "_":
-                    print(paikka)
-                    print(lauta[paikka[0]][paikka[1]])
-                    print(tutkittavat_paikat)
                     raise ValueError("Varattu ruutu")
                 else:
                     lauta[paikka[0]][paikka[1]] = self.minivoitava
-
+                    self.asd += 1
                     varatut_paikat_kopio = varatut_paikat[:]
                     varatut_paikat_kopio.append((paikka))
                     tutkittavat_paikat_kopio = self.lisaa_tutkittavat_paikat(tutkittavat_paikat.copy(),
@@ -278,7 +251,7 @@ class MiniMax():
                     beta = min(beta, arvo)
 
                     lauta[paikka[0]][paikka[1]] = "_"
-                    if beta <= alpha or abs(paras) == 10**5:
+                    if abs(paras) == 10**5:#beta <= alpha or 
                         break
             return paras
 
