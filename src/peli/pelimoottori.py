@@ -20,12 +20,11 @@ class PeliMoottori():
         vuoro = 1
 
         while True:
+            self.kayttoliittyma.tulosta_pelilauta(self.pelilauta.lauta)
             voitto = self.voiton_tarkistin()
             if voitto in ("X", "O"):
                 print("voitto", voitto)
                 break
-
-            self.kayttoliittyma.tulosta_pelilauta(self.pelilauta.lauta)
 
             if vuoro == 1:
                 if self.pelaaja == "X":
@@ -63,8 +62,7 @@ class PeliMoottori():
         self.tekoaly.lisaa_varattu_paikka(
             tekoalyn_siirto[0] + 1, tekoalyn_siirto[1] + 1)
 
-        self.pelilauta.lauta[tekoalyn_siirto[0]
-                             ][tekoalyn_siirto[1]] = self.pelilauta.vihu
+        self.pelilauta.siirto(f"{tekoalyn_siirto[0]+1} {tekoalyn_siirto[1]+1}", self.pelilauta.vihu)
 
     def voiton_tarkistin(self):
         """Tarkastaa onko pelilaudalle tullut voittoa. Viimeisimmäksi pelatun nappulan kohdalta.

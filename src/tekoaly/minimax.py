@@ -90,7 +90,7 @@ class MiniMax():
             tuple: Palauttaa parhaan siirron koordinaatit.
         """
         paras_arvo = -inf
-        paras_siirto = (10, 10)
+        paras_siirto = (-1, -1)
         syvyys = 3
         self.loydetty = inf
         self.asd = 0
@@ -228,7 +228,7 @@ class MiniMax():
             for paikka in tutkittavat_paikat:
 
                 if lauta[paikka[0]][paikka[1]] != "_":
-                    raise ValueError("Varattu ruutu")
+                    pass
                 else:
                     lauta[paikka[0]][paikka[1]] = self.maksivoitava
                     self.asd += 1
@@ -255,7 +255,7 @@ class MiniMax():
             for paikka in tutkittavat_paikat:
 
                 if lauta[paikka[0]][paikka[1]] != "_":
-                    raise ValueError("Varattu ruutu")
+                    pass
                 else:
                     lauta[paikka[0]][paikka[1]] = self.minivoitava
                     self.asd += 1
