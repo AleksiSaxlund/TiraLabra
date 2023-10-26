@@ -11,7 +11,7 @@ class Pelilauta():
 
         self.luo_pelilauta()
 
-    def nappulat(self, pelaajan_merkki):
+    def nappulat(self, pelaajan_merkki: str):
         """Määrittää pelaajan, ja tekoälyn nappulan.
 
         Args:
@@ -26,18 +26,17 @@ class Pelilauta():
         """Luo pelilautaa esittävän matriisin.
         """
         self.lauta = []
-        # self.lauta.append([str(n) for n in range(1, 25)])
         for i in range(self.laudan_koko):
             rivi = []
             ([rivi.append("_") for j in range(self.laudan_koko)])
             self.lauta.append(rivi)
 
-    def siirto(self, syote, nappula: str):
+    def siirto(self, syote: str, nappula: str):
         """Tekee siirron pelilaudalle. Varmistaa ensin, että siirto on laillinen.
             Muokkaa myös pelaajan syötteen sopivaan formaattiin.
 
         Args:
-            koordinaatit (str): Raaka syöte pelaajalta.
+            syote (str): Raaka syöte pelaajalta.
             nappula (str): Siirrettävä nappula.
 
         Returns:

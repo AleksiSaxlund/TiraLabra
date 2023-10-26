@@ -41,4 +41,5 @@ class PelilautaTesti(unittest.TestCase):
         returnit.append(self.pelilauta.siirto("16 5 2", "X")[0])
         returnit.append(self.pelilauta.siirto("2 15", "X")[0])
 
-        self.assertEqual(returnit, [False, False, False, False, False, False, True])
+        self.assertEqual(
+            returnit, [False, False, False, False, False, False, True])

@@ -18,12 +18,14 @@ def arvioi(lauta: list, arvioitava: str):
 
     vaaka = arvioi_vaakasuorat(lauta, n, arvioitava, vastustaja)
     pysty = arvioi_pystysuorat(lauta, n, arvioitava, vastustaja)
-    diagonaali_vasemmalta_alas = arvioi_diagonaalit_vasemmalta_alas(lauta, n, arvioitava, vastustaja)
-    diagonaali_vasemmalta_ylos = arvioi_diagonaalit_vasemmalta_ylos(lauta, n, arvioitava, vastustaja)
+    diagonaali_vasemmalta_alas = arvioi_diagonaalit_vasemmalta_alas(
+        lauta, n, arvioitava, vastustaja)
+    diagonaali_vasemmalta_ylos = arvioi_diagonaalit_vasemmalta_ylos(
+        lauta, n, arvioitava, vastustaja)
 
     if 10**5 in [vaaka, pysty, diagonaali_vasemmalta_alas, diagonaali_vasemmalta_ylos]:
         return 10**5
-    
+
     laudan_arvo = vaaka + pysty + diagonaali_vasemmalta_alas + diagonaali_vasemmalta_ylos
     return laudan_arvo
 
@@ -58,8 +60,8 @@ def arvioi_vaakasuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
                     laudan_arvo += valiarvo
                 auki_alussa = True
                 valiarvo = 0
-            
-            if (lauta[x][y] == "_" or y == n - 1) and valiarvo != 0 :
+
+            if (lauta[x][y] == "_" or y == n - 1) and valiarvo != 0:
                 if auki_alussa and valiarvo != 1 and y != n - 1:
                     if valiarvo >= 3:
                         laudan_arvo += valiarvo * 100
@@ -72,8 +74,9 @@ def arvioi_vaakasuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
 
             if valiarvo >= 5:
                 return 10**5
-        
+
     return laudan_arvo
+
 
 def arvioi_pystysuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
     """Arvioi annetun pelilaudan pystysuorat rivit. Jos löydetty rivi on auki molemmista päistä, 
@@ -104,8 +107,8 @@ def arvioi_pystysuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
                     laudan_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
-            
-            if (lauta[y][x] == "_" or y == n - 1) and valiarvo != 0 :
+
+            if (lauta[y][x] == "_" or y == n - 1) and valiarvo != 0:
                 if auki_alussa and valiarvo != 1 and y != n - 1:
                     if valiarvo >= 3:
                         laudan_arvo += valiarvo * 100
@@ -118,8 +121,9 @@ def arvioi_pystysuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
 
             if valiarvo >= 5:
                 return 10**5
-        
+
     return laudan_arvo
+
 
 def arvioi_diagonaalit_vasemmalta_alas(lauta: list, n: int, arvioitava: str, vastustaja: str):
     """Arvioi kaikki diagonaalirivit, jotka alkaa vasemmalta ja menee alaspäin, joissa voi kumminkin olla voittorivi.
@@ -138,17 +142,20 @@ def arvioi_diagonaalit_vasemmalta_alas(lauta: list, n: int, arvioitava: str, vas
     """
     laudan_arvo = 0
     for i in range(n-5, -1, -1):
-        diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_alas(lauta, n, i, 0, arvioitava, vastustaja)
+        diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_alas(
+            lauta, n, i, 0, arvioitava, vastustaja)
         if diagonaalin_arvo >= 10**5:
             return diagonaalin_arvo
         laudan_arvo += diagonaalin_arvo
 
     for i in range(1, n-5):
-        diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_alas(lauta, n, 0, i, arvioitava, vastustaja)
+        diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_alas(
+            lauta, n, 0, i, arvioitava, vastustaja)
         if diagonaalin_arvo >= 10**5:
             return diagonaalin_arvo
         laudan_arvo += diagonaalin_arvo
     return laudan_arvo
+
 
 def arvioi_yksi_diagonaali_vasemmalta_alas(lauta: list, n: int, aloitus_x: int, aloitus_y: int, arvioitava: str, vastustaja: str):
     """Apufunktio, joka arvioi yksittäisen diagonaalirivin arvon. Jos löydetty rivi on auki molemmista päistä, 
@@ -181,8 +188,8 @@ def arvioi_yksi_diagonaali_vasemmalta_alas(lauta: list, n: int, aloitus_x: int, 
                     rivin_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
-            
-            if lauta[j + aloitus_x][j + aloitus_y] == "_" and valiarvo != 0 :
+
+            if lauta[j + aloitus_x][j + aloitus_y] == "_" and valiarvo != 0:
                 if auki_alussa and valiarvo != 1 and j + aloitus_x < n:
                     if valiarvo >= 3:
                         rivin_arvo += valiarvo * 100
@@ -199,11 +206,11 @@ def arvioi_yksi_diagonaali_vasemmalta_alas(lauta: list, n: int, aloitus_x: int, 
         else:
             if auki_alussa:
                 rivin_arvo += valiarvo * valiarvo
-            valiarvo = 0    
+            valiarvo = 0
             break
 
-        
     return rivin_arvo
+
 
 def arvioi_diagonaalit_vasemmalta_ylos(lauta: list, n: int, arvioitava: str, vastustaja: str):
     """Arvioi kaikki diagonaalirivit, jotka alkaa vasemmalta ja menee ylös päin, joissa voi kumminkin olla voittorivi.
@@ -222,17 +229,20 @@ def arvioi_diagonaalit_vasemmalta_ylos(lauta: list, n: int, arvioitava: str, vas
     """
     laudan_arvo = 0
     for i in range(n-5, 0, -1):
-        diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_ylos(lauta, n, i, 0, arvioitava, vastustaja)
+        diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_ylos(
+            lauta, n, i, 0, arvioitava, vastustaja)
         if diagonaalin_arvo >= 10**5:
             return diagonaalin_arvo
         laudan_arvo += diagonaalin_arvo
 
     for i in range(0, n - 4):
-        diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_ylos(lauta, n, 0, i, arvioitava, vastustaja)
+        diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_ylos(
+            lauta, n, 0, i, arvioitava, vastustaja)
         if diagonaalin_arvo >= 10**5:
             return diagonaalin_arvo
         laudan_arvo += diagonaalin_arvo
     return laudan_arvo
+
 
 def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, aloitus_y: int, arvioitava: str, vastustaja: str):
     """Apufunktio, joka arvioi yksittäisen diagonaalirivin arvon. Jos löydetty rivi on auki molemmista päistä, 
@@ -255,7 +265,6 @@ def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, 
     valiarvo = 0
     for j in range(n + 1):
         if n - 1 - j - aloitus_x >= 0 and j + aloitus_y < n:
-            #print(n - 1 - j - aloitus_x, j + aloitus_y)
             if lauta[n - 1 - j - aloitus_x][j + aloitus_y] == arvioitava:
                 if j - 1 < 0 or lauta[n - j - aloitus_x][j + aloitus_y] == vastustaja:
                     auki_alussa = False
@@ -266,8 +275,8 @@ def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, 
                     rivin_arvo += valiarvo * valiarvo
                 auki_alussa = True
                 valiarvo = 0
-            
-            if lauta[n - 1 - j - aloitus_x][j + aloitus_y] == "_" and valiarvo != 0 :
+
+            if lauta[n - 1 - j - aloitus_x][j + aloitus_y] == "_" and valiarvo != 0:
                 if auki_alussa and valiarvo != 1 and j + aloitus_y < n:
                     if valiarvo >= 3:
                         rivin_arvo += valiarvo * 100
@@ -284,19 +293,7 @@ def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, 
         else:
             if auki_alussa:
                 rivin_arvo += valiarvo * valiarvo
-            valiarvo = 0    
+            valiarvo = 0
             break
 
-        
     return rivin_arvo
-
-
-#lauta = [["O", "_", "_", "_", "O", "O"],
- #        ["_", "_", "X", "X", "O", "_"],
-  #       ["O", "X", "X", "X", "X", "O"],
-   #      ["_", "X", "O", "O", "X", "_"],
-    #     ["X", "_", "O", "_", "_", "X"],
-     #    ["O", "_", "_", "_", "_", "_"]]
-
-#print(arvioi_vaakasuorat(lauta, len(lauta), "O", "X")) # 7
-#print(arvioi_vaakasuorat(lauta, len(lauta), "O", "X"))

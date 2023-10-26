@@ -1,4 +1,3 @@
-from time import time
 from peli.kayttoliittyma import Kayttoliittyma
 from peli.pelilauta import Pelilauta
 from tekoaly.minimax import MiniMax
@@ -16,10 +15,11 @@ class PeliMoottori():
         self.peli_kierros()
 
     def peli_kierros(self):
+        """Vastaa peli kierrosta. Poistuu tästä vasta kun on tullut voitto.
+        """
         vuoro = 1
 
         while True:
-            print(vuoro)
             voitto = self.voiton_tarkistin()
             if voitto in ("X", "O"):
                 print("voitto", voitto)
@@ -57,26 +57,22 @@ class PeliMoottori():
             onnistunut = False
 
     def tekoalyn_vuoro(self):
-        """Väliaikainen "tekoälyn" vuoro.
-        """
-        alku = time()
         tekoalyn_siirto = self.tekoaly.valitse_paras_siirto()
-        print(tekoalyn_siirto)
+        print(tekoalyn_siirto[0], tekoalyn_siirto[1])
 
-        self.tekoaly.lisaa_varattu_paikka(tekoalyn_siirto[0], tekoalyn_siirto[1])
+        self.tekoaly.lisaa_varattu_paikka(
+            tekoalyn_siirto[0] + 1, tekoalyn_siirto[1] + 1)
 
-        self.pelilauta.lauta[tekoalyn_siirto[0]][tekoalyn_siirto[1]] = self.pelilauta.vihu
-        loppu = time()
-        print("Aikaa meni:", loppu - alku)
+        self.pelilauta.lauta[tekoalyn_siirto[0]
+                             ][tekoalyn_siirto[1]] = self.pelilauta.vihu
 
     def voiton_tarkistin(self):
-        """Tarkastaa onko pelilaudalle tullut voittoa.
+        """Tarkastaa onko pelilaudalle tullut voittoa. Viimeisimmäksi pelatun nappulan kohdalta.
 
         Returns:
             bool, str: False, jos ei voittoa. Voittajan merkki, jos on voitto
         """
         x, y = self.pelilauta.viimeisin_siirto
-        print(self.pelilauta.viimeisin_siirto)
         lauta = self.pelilauta.lauta
         # vaaka
         for i in range(1, 6):
@@ -125,7 +121,3 @@ class PeliMoottori():
                     return lauta[x][y]
 
         return False
-
-
-if False:
-    asd = PeliMoottori()
