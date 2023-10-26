@@ -32,6 +32,7 @@ Ohjelman kokonaistoimintaa on myös testattu pelaamalla peliä itsessään, joss
 Suorituskykytestausta tein pelaamalla ensimmäisen siirron X-pelaajana syötteellä "10 10". Testauksen tein omalla pöytäkoneellani.
 
 Kaavio suorituskykytestauksen tuloksista
+
 ![kaavio suorituskykytuloksista](./kuvat/tulokset.png)
 
 Kaaviosta huomaa, että aika, sekä läpikäydyt aseman nousevat erittäin nopeasti kun laskentasyvyyttä nostetaan. Alphabeetta karsinta kuitenkin tehostaa paljon.
