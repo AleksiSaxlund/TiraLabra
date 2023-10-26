@@ -7,6 +7,17 @@ Yksikkötestejä on tehty [heurestiikka.py](/src/tekoaly/heurestiikka.py), [mini
 
 Tekoälyyn liittyvät testit tehtiin 15x15 pelilaudalle ajan säästämiseksi. Toimintojen pitäisi kuitenkin ollan samat kuin 25x25 laudalla.
 
+## Manuaalitestaus
+
+Kaikkia projektin moduuleita on testattu manuaalitestattu. *peli*-hakemiston moduuleissa testaus keskittyi pelin perustoimivuuteen. Koitettiin syöttää virheellisiä syötteitä ja erilaisia laitatapauksia.
+
+*tekoaly*-hakemiston moduuleissa manuaalitestaus on keskittynyt tekoälyn pelitaitoihin. 
+
+Ohjelman kokonaistoimintaa on myös testattu pelaamalla peliä itsessään, jossa kaikki moduulit ja luokat ovat käytössä.
+
+## Testikattavuus
+
+![coverage](./kuvat/coverage.png)
 
 ## Kattavuusraportti
 
@@ -18,14 +29,6 @@ Yksikkötestit ja kattavuusraportin voi tarkistaa itse seuraavilla komennoilla p
 4. Poistu shellistä komennolla ```exit```
 
 Raportti löytyy sijainnista *tiralabra/htmlcov/index.html*, jonka voit avata selaimellasi.
-
-## Manuaalitestaus
-
-Kaikkia projektin moduuleita on testattu manuaalitestattu. *peli*-hakemiston moduuleissa testaus keskittyi pelin perustoimivuuteen. Koitettiin syöttää virheellisiä syötteitä ja erilaisia laitatapauksia.
-
-*tekoaly*-hakemiston moduuleissa manuaalitestaus on keskittynyt tekoälyn pelitaitoihin. 
-
-Ohjelman kokonaistoimintaa on myös testattu pelaamalla peliä itsessään, jossa kaikki moduulit ja luokat ovat käytössä.
 
 ## Suorituskykytestaus
 
