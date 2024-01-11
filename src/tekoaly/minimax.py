@@ -23,6 +23,19 @@ class MiniMax():
             self.maksivoitava = "X"
             self.vuoro = 1
 
+    def __varatut_paikat_append(self, koordinaatit: tuple):
+        """Lisää varatut paikat listaan.
+
+        Args:
+            koordinaatit (tuple): Koordinaatit, jotka lisätään.
+        """
+        self.varatut_paikat.append(koordinaatit)
+    
+    def __kasvata_siirtojen_maaraa(self):
+        """Kasvattaa siirtojen määrää yhdellä.
+        """
+        self.siirtojen_maara += 1
+
     def lisaa_varattu_paikka(self, x: int, y: int):
         """Lisää paikan varattujen paikojen listaan.
 
@@ -30,10 +43,12 @@ class MiniMax():
             x (int): X-koordinaatti
             y (int): Y-koordinaatti
         """
-        self.varatut_paikat.append((x, y))
+        self.__varatut_paikat_append((x, y))
+        self.__kasvata_siirtojen_maaraa()
+
         self.tutkittavat_paikat = self.lisaa_tutkittavat_paikat(
             self.tutkittavat_paikat, self.varatut_paikat, True)
-        self.siirtojen_maara += 1
+
 
     def lisaa_tutkittavat_paikat(self, tutkittavat_paikat: list, varatut_paikat: list, ensimmainen: bool):
         """Lisää tutkittavat paikat annetusta tutkittavat paikat listasta.
@@ -80,10 +95,14 @@ class MiniMax():
                         if self.lauta[paikka[0] + i][paikka[1] + j] == "_" and (paikka[0] + i, paikka[1] + j) not in varatut_paikat:
                             tutkittavat_paikat.appendleft(
                                 (paikka[0] + i, paikka[1] + j))
-
+        if ensimmainen:
+            print(tutkittavat_paikat)
         return tutkittavat_paikat
 
     def valitse_paras_siirto(self):
+        self.voitto_loytynyt = False
+        self.voitto_siirto = (-1, -1)
+        self.voitto_nappi = "_"
         """Funktio, joka kutsuu minimaxia ensimmäistä kertaa.
 
         Returns:
@@ -97,7 +116,6 @@ class MiniMax():
 
         for paikka in self.tutkittavat_paikat:
             if self.lauta[paikka[0]][paikka[1]] == "_":
-                self.voitto_loytynyt = False
                 print("Ladataan...")
                 self.lauta[paikka[0]][paikka[1]] = self.maksivoitava
 
@@ -115,7 +133,7 @@ class MiniMax():
                     paras_arvo = siirron_arvo
                     paras_siirto = paikka
 
-        return paras_siirto
+        return paras_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
 
     def siirtoja_jaljella(self, syvyys: int):
         """Tarkistaa, että onko enää mahdollista tehdä siirtoja.
@@ -137,54 +155,62 @@ class MiniMax():
             bool, str: False, jos ei voittoa. Voittajan nappula, jos voitto
         """
 
+        tarkistettava = self.lauta[x][y]
+
+        if tarkistettava == "_":
+            return False
+
         # vaaka
-        for i in range(1, 6):
-            if y - 5 + i >= 0 and y + i <= self.n:
-                jono = self.lauta[x][y - 5 + i: y + i]
-                if len(set(jono)) == 1 and len(jono) == 5 and "_" not in jono:
-                    return self.lauta[x][y]
+        loydot = 0
+        for i in range(-4, 5):
+            
+            if y + i >= 0 and y + i < self.n:
+                if self.lauta[x][y + i] == tarkistettava:
+                    loydot += 1
+
+                    if loydot == 5:
+                        return tarkistettava
+                else:
+                    loydot = 0
 
         # pysty
-        if True:
-            for i in range(1, 6):
-                jono = []
-                if x - 5 + i >= 0:
-                    for j in range(5):
-                        if x + i <= self.n:
-                            jono.append(self.lauta[x - 5 + i + j][y])
-                        else:
-                            break
+        loydot = 0
+        for i in range(-4, 5):
+            
+            if x + i >= 0 and x + i < self.n:
+                if self.lauta[x + i][y] == tarkistettava:
+                    loydot += 1
 
-                if len(set(jono)) == 1 and len(jono) == 5 and "_" not in jono:
-                    return self.lauta[x][y]
+                    if loydot == 5:
+                        return tarkistettava
+                else:
+                    loydot = 0
 
-            # diagonaali vasemmalta alaspäin
-            for i in range(1, 6):
-                jono = []
-                if x - 5 + i >= 0:
-                    for j in range(5):
-                        if x - 5 + i + j <= self.n and x - 5 + i + j < self.n and y - 5 + i + j >= 0 and y - 5 + i + j < self.n:
-                            jono.append(
-                                self.lauta[x - 5 + i + j][y - 5 + i + j])
-                        else:
-                            break
+        # diagonaali vasemmalta alaspäin
+        loydot = 0
+        for i in range(-4, 5):
 
-                if len(set(jono)) == 1 and len(jono) == 5 and "_" not in jono:
-                    return self.lauta[x][y]
+            if x + i >= 0 and y + i >= 0 and x + i < self.n and y + i < self.n:
+                if self.lauta[x + i][y + i] == tarkistettava:
+                    loydot += 1
 
-            # diagonaali vasemmalta ylös
-            for i in range(1, 6):
-                jono = []
-                if x - i >= -1 and y + i <= self.n:
-                    for j in range(5):
-                        if x + 5 - i < self.n and y - 5 + i >= 0:
-                            jono.append(
-                                self.lauta[x + 5 - i - j][y - 5 + i + j])
-                        else:
-                            break
+                    if loydot == 5:
+                        return tarkistettava
+                else:
+                    loydot = 0
 
-                    if len(set(jono)) == 1 and len(jono) == 5 and "_" not in jono:
-                        return self.lauta[x][y]
+        # diagonaali vasemmalta ylös
+        loydot = 0
+        for i in range(-4, 5):
+
+            if x + i >= 0 and y + i >= 0 and x + i < self.n and y + i < self.n:
+                if self.lauta[x - i][y + i] == tarkistettava:
+                    loydot += 1
+
+                    if loydot == 5:
+                        return tarkistettava
+                else:
+                    loydot = 0
 
         return False
 
@@ -209,6 +235,8 @@ class MiniMax():
         if voitto != False:
             self.loydetty = min(self.loydetty, syvyys)
             self.voitto_siirto = (paikka[0], paikka[1])
+            self.voitto_nappi = voitto
+            self.voitto_loytynyt = True
             if voitto == self.maksivoitava:
                 return 10**5
             return -10**5
@@ -274,3 +302,4 @@ class MiniMax():
                     if beta <= alpha or abs(paras) == 10**5:
                         break
             return paras
+

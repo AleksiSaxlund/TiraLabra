@@ -1,6 +1,7 @@
 from peli.kayttoliittyma import Kayttoliittyma
 from peli.pelilauta import Pelilauta
 from tekoaly.minimax import MiniMax
+from time import time
 
 
 class PeliMoottori():
@@ -56,11 +57,15 @@ class PeliMoottori():
             onnistunut = False
 
     def tekoalyn_vuoro(self):
-        tekoalyn_siirto = self.tekoaly.valitse_paras_siirto()
+        alku = time()
+        tekoalyn_siirto, loytynyt, voitto_siirto, voitto_nappi = self.tekoaly.valitse_paras_siirto()
         print(tekoalyn_siirto[0], tekoalyn_siirto[1])
 
         self.tekoaly.lisaa_varattu_paikka(
             tekoalyn_siirto[0] + 1, tekoalyn_siirto[1] + 1)
+        print("aika", time() - alku)
+        print("loytynyt voitto?", loytynyt)
+        print("voitto siirto:", voitto_siirto, "napille:", voitto_nappi)
 
         self.pelilauta.siirto(f"{tekoalyn_siirto[0]+1} {tekoalyn_siirto[1]+1}", self.pelilauta.vihu)
 

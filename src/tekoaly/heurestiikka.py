@@ -17,22 +17,22 @@ def arvioi(lauta: list, arvioitava: str):
     vastustaja = nappulat[0]
 
     vaaka = arvioi_vaakasuorat(lauta, n, arvioitava, vastustaja)
-    if vaaka == 10**5:
-        return 10**5
+    if vaaka == 10**4:
+        return 10**4
     
     pysty = arvioi_pystysuorat(lauta, n, arvioitava, vastustaja)
-    if pysty == 10**5:
-        return 10**5
+    if pysty == 10**4:
+        return 10**4
     
     diagonaali_vasemmalta_alas = arvioi_diagonaalit_vasemmalta_alas(
         lauta, n, arvioitava, vastustaja)
-    if diagonaali_vasemmalta_alas == 10**5:
-        return 10**5
+    if diagonaali_vasemmalta_alas == 10**4:
+        return 10**4
     
     diagonaali_vasemmalta_ylos = arvioi_diagonaalit_vasemmalta_ylos(
         lauta, n, arvioitava, vastustaja)
-    if diagonaali_vasemmalta_ylos == 10**5:
-        return 10**5
+    if diagonaali_vasemmalta_ylos == 10**4:
+        return 10**4
 
     laudan_arvo = vaaka + pysty + diagonaali_vasemmalta_alas + diagonaali_vasemmalta_ylos
     return laudan_arvo
@@ -78,7 +78,7 @@ def arvioi_vaakasuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
                 valiarvo = 0
 
             if valiarvo >= 5:
-                return 10**5
+                return 10**4
         
         if auki_alussa:
             laudan_arvo += valiarvo
@@ -125,7 +125,7 @@ def arvioi_pystysuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
                 valiarvo = 0
 
             if valiarvo >= 5:
-                return 10**5
+                return 10**4
 
         if auki_alussa:
             laudan_arvo += valiarvo
@@ -152,14 +152,14 @@ def arvioi_diagonaalit_vasemmalta_alas(lauta: list, n: int, arvioitava: str, vas
     for i in range(n-5, -1, -1):
         diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_alas(
             lauta, n, i, 0, arvioitava, vastustaja)
-        if diagonaalin_arvo >= 10**5:
+        if diagonaalin_arvo >= 10**4:
             return diagonaalin_arvo
         laudan_arvo += diagonaalin_arvo
 
     for i in range(1, n-5):
         diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_alas(
             lauta, n, 0, i, arvioitava, vastustaja)
-        if diagonaalin_arvo >= 10**5:
+        if diagonaalin_arvo >= 10**4:
             return diagonaalin_arvo
         laudan_arvo += diagonaalin_arvo
     return laudan_arvo
@@ -206,7 +206,7 @@ def arvioi_yksi_diagonaali_vasemmalta_alas(lauta: list, n: int, aloitus_x: int, 
                 valiarvo = 0
 
             if valiarvo >= 5:
-                return 10**5
+                return 10**4
 
         else:
             if auki_alussa:
@@ -236,14 +236,14 @@ def arvioi_diagonaalit_vasemmalta_ylos(lauta: list, n: int, arvioitava: str, vas
     for i in range(n-5, 0, -1):
         diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_ylos(
             lauta, n, i, 0, arvioitava, vastustaja)
-        if diagonaalin_arvo >= 10**5:
+        if diagonaalin_arvo >= 10**4:
             return diagonaalin_arvo
         laudan_arvo += diagonaalin_arvo
 
     for i in range(0, n - 4):
         diagonaalin_arvo = arvioi_yksi_diagonaali_vasemmalta_ylos(
             lauta, n, 0, i, arvioitava, vastustaja)
-        if diagonaalin_arvo >= 10**5:
+        if diagonaalin_arvo >= 10**4:
             return diagonaalin_arvo
         laudan_arvo += diagonaalin_arvo
     return laudan_arvo
@@ -290,7 +290,7 @@ def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, 
                 valiarvo = 0
 
             if valiarvo >= 5:
-                return 10**5
+                return 10**4
 
         else:
             if auki_alussa:
