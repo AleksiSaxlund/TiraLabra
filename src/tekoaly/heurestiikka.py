@@ -77,7 +77,7 @@ def arvioi_vaakasuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
                 auki_alussa = True
                 valiarvo = 0
 
-            if valiarvo >= 5:
+            if valiarvo >= 4:
                 return 10**4
         
         if auki_alussa:
@@ -124,7 +124,7 @@ def arvioi_pystysuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
                 auki_alussa = True
                 valiarvo = 0
 
-            if valiarvo >= 5:
+            if valiarvo >= 4:
                 return 10**4
 
         if auki_alussa:
@@ -205,7 +205,7 @@ def arvioi_yksi_diagonaali_vasemmalta_alas(lauta: list, n: int, aloitus_x: int, 
                 auki_alussa = True
                 valiarvo = 0
 
-            if valiarvo >= 5:
+            if valiarvo >= 4:
                 return 10**4
 
         else:
@@ -289,7 +289,7 @@ def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, 
                 auki_alussa = True
                 valiarvo = 0
 
-            if valiarvo >= 5:
+            if valiarvo >= 4:
                 return 10**4
 
         else:

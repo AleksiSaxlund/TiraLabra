@@ -111,12 +111,19 @@ class MiniMax():
         paras_arvo = -inf
         paras_siirto = (-1, -1)
         syvyys = 3
+        self.alkuperainen_syvyys = syvyys
         self.loydetty = inf
         self.asd = 0
 
+        if len(self.varatut_paikat) == 1:
+            return ((self.varatut_paikat[0][0] + 1, self.varatut_paikat[0][1] + 1),
+                    self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi)
+        elif self.varatut_paikat == []:
+            return ((self.n // 2, self.n // 2), self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi)
+
         for paikka in self.tutkittavat_paikat:
             if self.lauta[paikka[0]][paikka[1]] == "_":
-                print("Ladataan...")
+                print(f"Ladataan... {self.tutkittavat_paikat.index(paikka)+1}/{len(self.tutkittavat_paikat)}")
                 self.lauta[paikka[0]][paikka[1]] = self.maksivoitava
 
                 varatut_paikat_kopio = self.varatut_paikat[:]
@@ -128,6 +135,11 @@ class MiniMax():
                                             tutkittavat_paikat_kopio, varatut_paikat_kopio)
 
                 self.lauta[paikka[0]][paikka[1]] = "_"
+
+                if siirron_arvo >= 10**5:
+                    return self.voitto_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
+                elif siirron_arvo <= -10**5 + 1:
+                    return self.voitto_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
 
                 if siirron_arvo > paras_arvo:
                     paras_arvo = siirron_arvo
@@ -169,6 +181,7 @@ class MiniMax():
                     loydot += 1
 
                     if loydot == 5:
+                        self.tulosta_lauta()
                         return tarkistettava
                 else:
                     loydot = 0
@@ -182,6 +195,7 @@ class MiniMax():
                     loydot += 1
 
                     if loydot == 5:
+                        self.tulosta_lauta()
                         return tarkistettava
                 else:
                     loydot = 0
@@ -195,6 +209,7 @@ class MiniMax():
                     loydot += 1
 
                     if loydot == 5:
+                        self.tulosta_lauta()
                         return tarkistettava
                 else:
                     loydot = 0
@@ -208,11 +223,21 @@ class MiniMax():
                     loydot += 1
 
                     if loydot == 5:
+                        self.tulosta_lauta()
                         return tarkistettava
                 else:
                     loydot = 0
 
         return False
+
+    def tulosta_lauta(self):
+        """Tulostaa pelilaudan.
+        """
+        pass
+        for i in range(self.n):
+            for j in range(self.n):
+                print(self.lauta[i][j], end=" ")
+            print()
 
     def minimax(self, lauta: list, syvyys: int, alpha: int, beta: int, vuoro: int, paikka: tuple,
                 tutkittavat_paikat: list, varatut_paikat: list):
@@ -231,6 +256,8 @@ class MiniMax():
         Returns:
             int: Palauttaa siirron arvon.
         """
+        #self.tulosta_lauta()
+        #input()
         voitto = self.voiton_tarkistin(paikka[0], paikka[1])
         if voitto != False:
             self.loydetty = min(self.loydetty, syvyys)
@@ -238,8 +265,8 @@ class MiniMax():
             self.voitto_nappi = voitto
             self.voitto_loytynyt = True
             if voitto == self.maksivoitava:
-                return 10**5
-            return -10**5
+                return 10**5 - (self.alkuperainen_syvyys - syvyys)
+            return -10**5 + (self.alkuperainen_syvyys - syvyys)
 
         if syvyys == 0:
             if vuoro == 1:
@@ -260,19 +287,19 @@ class MiniMax():
                 else:
                     lauta[paikka[0]][paikka[1]] = self.maksivoitava
                     self.asd += 1
-                    varatut_paikat_kopio = varatut_paikat[:]
-                    varatut_paikat_kopio.append((paikka))
+                    varatut_paikat.append((paikka))
                     tutkittavat_paikat_kopio = self.lisaa_tutkittavat_paikat(tutkittavat_paikat.copy(),
-                                                                             varatut_paikat_kopio, False)
+                                                                             varatut_paikat, False)
 
                     arvo = self.minimax(lauta, syvyys-1, alpha, beta, vuoro*-1, paikka,
-                                        tutkittavat_paikat_kopio, varatut_paikat_kopio)
+                                        tutkittavat_paikat_kopio, varatut_paikat)
 
                     paras = max(arvo, paras)
                     alpha = max(alpha, arvo)
 
+                    varatut_paikat.pop()
                     lauta[paikka[0]][paikka[1]] = "_"
-                    if beta <= alpha or abs(paras) == 10**5:
+                    if beta <= alpha or abs(paras) >= 10**5 - self.alkuperainen_syvyys:
                         break
 
             return paras
@@ -287,19 +314,19 @@ class MiniMax():
                 else:
                     lauta[paikka[0]][paikka[1]] = self.minivoitava
                     self.asd += 1
-                    varatut_paikat_kopio = varatut_paikat[:]
-                    varatut_paikat_kopio.append((paikka))
+                    varatut_paikat.append((paikka))
                     tutkittavat_paikat_kopio = self.lisaa_tutkittavat_paikat(tutkittavat_paikat.copy(),
-                                                                             varatut_paikat_kopio, False)
+                                                                             varatut_paikat, False)
 
                     arvo = self.minimax(lauta, syvyys-1, alpha, beta, vuoro*-1, paikka,
-                                        tutkittavat_paikat_kopio, varatut_paikat_kopio)
+                                        tutkittavat_paikat_kopio, varatut_paikat)
 
                     paras = min(arvo, paras)
                     beta = min(beta, arvo)
 
+                    varatut_paikat.pop()
                     lauta[paikka[0]][paikka[1]] = "_"
-                    if beta <= alpha or abs(paras) == 10**5:
+                    if beta <= alpha or abs(paras) >= 10**5 - self.alkuperainen_syvyys:
                         break
             return paras
 
