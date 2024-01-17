@@ -13,7 +13,7 @@ class MiniMax():
         self.pelatut_siirrot = 0
         self.lauta = lauta
         self.varatut_paikat = []
-        self.tutkittavat_paikat = deque([])
+        self.tutkittavat_paikat = deque()
 
         self.minivoitava = pelaaja
         if self.minivoitava == "X":
@@ -21,7 +21,13 @@ class MiniMax():
             self.vuoro = -1
         else:
             self.maksivoitava = "X"
-            self.vuoro = 1
+            self.vuoro = -1
+        
+        if False:
+            for x in range(self.n):
+                for y in range(self.n):
+                    if lauta[x][y] == "X" or lauta[x][y] == "O":
+                        self.lisaa_varattu_paikka(x, y)
 
     def __varatut_paikat_append(self, koordinaatit: tuple):
         """Lisää varatut paikat listaan.
@@ -103,11 +109,7 @@ class MiniMax():
         self.voitto_loytynyt = False
         self.voitto_siirto = (-1, -1)
         self.voitto_nappi = "_"
-        """Funktio, joka kutsuu minimaxia ensimmäistä kertaa.
 
-        Returns:
-            tuple: Palauttaa parhaan siirron koordinaatit.
-        """
         paras_arvo = -inf
         paras_siirto = (-1, -1)
         syvyys = 3
@@ -115,12 +117,14 @@ class MiniMax():
         self.loydetty = inf
         self.asd = 0
 
+        # Tekoälyn ensimmäinen siirto kovakoodattu tulemaan aina keskelle.
         if len(self.varatut_paikat) == 1:
             return ((self.varatut_paikat[0][0] + 1, self.varatut_paikat[0][1] + 1),
                     self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi)
         elif self.varatut_paikat == []:
             return ((self.n // 2, self.n // 2), self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi)
 
+        # Siirron valitsija itsessään. Käy läpi kaikki tutkittavat paikat ja valitsee niistä parhaan.
         for paikka in self.tutkittavat_paikat:
             if self.lauta[paikka[0]][paikka[1]] == "_":
                 print(f"Ladataan... {self.tutkittavat_paikat.index(paikka)+1}/{len(self.tutkittavat_paikat)}")
@@ -133,12 +137,19 @@ class MiniMax():
 
                 siirron_arvo = self.minimax(self.lauta, syvyys, -inf, inf, self.vuoro, paikka,
                                             tutkittavat_paikat_kopio, varatut_paikat_kopio)
+                
+                if False:
+                    self.tulosta_lauta()
+                    print(f"Siirron arvo: {siirron_arvo}")
+                    input()
 
                 self.lauta[paikka[0]][paikka[1]] = "_"
 
-                if siirron_arvo >= 10**5:
+                if siirron_arvo >= 10**5 - 1:
+                    print("voitto maksimoitava")
                     return self.voitto_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
-                elif siirron_arvo <= -10**5 + 1:
+                elif siirron_arvo <= -10**5 + 2:
+                    print("voitto minimoitava")
                     return self.voitto_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
 
                 if siirron_arvo > paras_arvo:
@@ -256,8 +267,9 @@ class MiniMax():
         Returns:
             int: Palauttaa siirron arvon.
         """
-        #self.tulosta_lauta()
-        #input()
+        if len(self.varatut_paikat) >= 6:
+            self.tulosta_lauta()
+            input()
         voitto = self.voiton_tarkistin(paikka[0], paikka[1])
         if voitto != False:
             self.loydetty = min(self.loydetty, syvyys)
@@ -265,7 +277,9 @@ class MiniMax():
             self.voitto_nappi = voitto
             self.voitto_loytynyt = True
             if voitto == self.maksivoitava:
+                print(10**5 - (self.alkuperainen_syvyys - syvyys))
                 return 10**5 - (self.alkuperainen_syvyys - syvyys)
+            print(10**5 - (self.alkuperainen_syvyys - syvyys))
             return -10**5 + (self.alkuperainen_syvyys - syvyys)
 
         if syvyys == 0:
