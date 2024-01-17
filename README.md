@@ -13,4 +13,4 @@ Käyttohjeet löydät [täältä](./Dokumentaatio/kayttoohje.md)
 - [Toteutusdokumentti](/Dokumentaatio/toteutusdokumentti.md)
 
 ## Viikkoraportit
-- [Viikkoraportti 1](/Dokumentaatio/viikkoraportit/viikkoraportti1.md)
+- [Viikkoraportti 1](/Dokumentaatio/Viikkoraportit/viikkoraportti1.md)
