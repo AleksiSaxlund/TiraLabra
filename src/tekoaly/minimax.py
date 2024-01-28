@@ -229,7 +229,8 @@ class MiniMax():
         loydot = 0
         for i in range(-4, 5):
 
-            if x + i >= 0 and y + i >= 0 and x + i < self.n and y + i < self.n:
+            if x + i >= 0 and y + i >= 0 and x + i < self.n and y + i < self.n - 1:
+                #print(x + i, y - i)
                 if self.lauta[x - i][y + i] == tarkistettava:
                     loydot += 1
 
@@ -267,9 +268,6 @@ class MiniMax():
         Returns:
             int: Palauttaa siirron arvon.
         """
-        if len(self.varatut_paikat) >= 6:
-            self.tulosta_lauta()
-            input()
         voitto = self.voiton_tarkistin(paikka[0], paikka[1])
         if voitto != False:
             self.loydetty = min(self.loydetty, syvyys)
@@ -313,7 +311,7 @@ class MiniMax():
 
                     varatut_paikat.pop()
                     lauta[paikka[0]][paikka[1]] = "_"
-                    if beta <= alpha or abs(paras) >= 10**5 - self.alkuperainen_syvyys:
+                    if beta <= alpha:# or abs(paras) >= 10**5 - self.alkuperainen_syvyys:
                         break
 
             return paras
@@ -340,7 +338,7 @@ class MiniMax():
 
                     varatut_paikat.pop()
                     lauta[paikka[0]][paikka[1]] = "_"
-                    if beta <= alpha or abs(paras) >= 10**5 - self.alkuperainen_syvyys:
+                    if beta <= alpha:# or abs(paras) >= 10**5 - self.alkuperainen_syvyys:
                         break
             return paras
 

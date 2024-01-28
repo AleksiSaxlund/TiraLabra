@@ -26,9 +26,10 @@ class Kayttoliittyma():
             pelilauta (list): Pelilautaa esittävä matriisi
         """
         self.tulosta_tyhjää()
-        for rivi in pelilauta:
-            hieno_rivi = "".join(rivi)
-            print(hieno_rivi)
+        for rivi in range(len(pelilauta)):
+            for sarake in range(len(pelilauta[rivi])):
+                print(pelilauta[rivi][sarake], end=" ")
+            print()
 
     def pelaajan_siirto_syote(self, onnistunut: bool):
         """Vastaanottaa pelaajalta syötteen.

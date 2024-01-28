@@ -18,7 +18,7 @@ Käyttöliittymän olisi tarkoitus olla terminaalissa, johon tulostetaan jokaise
 
 Toteutan tekoälyn minimax-algoritmilla, jota tehostan alpha-beta-karsinnalla. Minimax-algoritmi hyödyntää puurakennetta ja pelilautaa esitän 25x25 matriisia, joka muodostuu listoista.
 
-Minimax-algoritmin aikavaativuus on O(b^m) ja alpha-beta-karsinnalla O(b^d).
+Minimax-algoritmin aikavaativuus on O(b^m), jossa b on laillisten siirtojen määrä ja m on syvyys.
 
 Minimax-algoritmi alpha-beta-karsinnalla on kohtalaisen yksinkertainen, mutta silti tehokas tapa toteuttaa tekoäly ristinollan kaltaiselle pelille, sekä kyseisestä tavasta löytyy reilusti dokumentaatiota netistä.
 
