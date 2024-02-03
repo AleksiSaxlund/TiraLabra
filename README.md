@@ -1,6 +1,6 @@
 # Tiralabra Ristinolla
 
-Ristinollapeli 25x25 pelilaudalla, jonka tekoäly on toteutettu minimax-algoritmilla.
+Ristinollapeli 20x20 pelilaudalla, jonka tekoäly on toteutettu minimax-algoritmilla.
 
 ## Käyttöohjeet
 
@@ -15,3 +15,5 @@ Käyttohjeet löydät [täältä](./Dokumentaatio/kayttoohje.md)
 ## Viikkoraportit
 - [Viikkoraportti 1](/Dokumentaatio/Viikkoraportit/viikkoraportti1.md)
 - [Viikkoraportti 2](/Dokumentaatio/Viikkoraportit/viikkoraportti2.md)
+- [Viikkoraportti 3](/Dokumentaatio/Viikkoraportit/viikkoraportti3.md)
+- 
