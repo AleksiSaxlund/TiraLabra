@@ -25,11 +25,28 @@ class Kayttoliittyma():
         Args:
             pelilauta (list): Pelilautaa esittävä matriisi
         """
+        yla_rivi_1 = "                     1 1 1 1 1 1 1 1 1 1 2"
+        yla_rivi_2 = "   1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0"
+        ala_rivi_1 = "   1 2 3 4 5 6 7 8 9 1 1 1 1 1 1 1 1 1 1 2"
+        ala_rivi_2 = "                     0 1 2 3 4 5 6 7 8 9 0"
+
+        koordinaatit = [i for i in range(21, 0, -1)]
+        k1 = koordinaatit.copy()
+
         self.tulosta_tyhjää()
+        print(yla_rivi_1)
+        print(yla_rivi_2)
+
         for rivi in range(len(pelilauta)):
+            print(str(k1.pop()).rjust(2, " "), end=" ")
+
             for sarake in range(len(pelilauta[rivi])):
                 print(pelilauta[rivi][sarake], end=" ")
-            print()
+            print(koordinaatit.pop())
+        
+        print(ala_rivi_1)
+        print(ala_rivi_2)
+        print()
 
     def pelaajan_siirto_syote(self, onnistunut: bool):
         """Vastaanottaa pelaajalta syötteen.

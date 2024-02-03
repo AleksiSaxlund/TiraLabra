@@ -79,7 +79,7 @@ class PeliMoottori():
         lauta = self.pelilauta.lauta
         # vaaka
         for i in range(1, 6):
-            if y - 5 + i >= 0 and y + i <= 25:
+            if y - 5 + i >= 0 and y + i <= 20:
                 jono = lauta[x][y - 5 + i: y + i]
                 if len(set(jono)) == 1:
                     return lauta[x][y]
@@ -89,7 +89,7 @@ class PeliMoottori():
             jono = []
             if x - 5 + i >= 0:
                 for j in range(5):
-                    if x + i <= 25:
+                    if x + i <= 20:
                         jono.append(lauta[x - 5 + i + j][y])
                     else:
                         break
@@ -102,7 +102,7 @@ class PeliMoottori():
             jono = []
             if x - 5 + i >= 0:
                 for j in range(5):
-                    if x + i <= 25 and y + j <= 24:
+                    if x + i <= 20 and y + j <= 19:
                         jono.append(lauta[x - 5 + i + j][y - 5 + i + j])
                     else:
                         break
@@ -113,9 +113,9 @@ class PeliMoottori():
         # diagonaali vasemmalta ylös
         for i in range(1, 6):
             jono = []
-            if x - i >= -1 and y + i <= 25:
+            if x - i >= -1 and y + i <= 20:
                 for j in range(5):
-                    if x + 5 - i <= 24 and y - 5 + i >= 0:
+                    if x + 5 - i <= 19 and y - 5 + i >= 0:
                         jono.append(lauta[x + 5 - i - j][y - 5 + i + j])
                     else:
                         break

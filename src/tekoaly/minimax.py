@@ -127,7 +127,7 @@ class MiniMax():
         # Siirron valitsija itsessään. Käy läpi kaikki tutkittavat paikat ja valitsee niistä parhaan.
         for paikka in self.tutkittavat_paikat:
             if self.lauta[paikka[0]][paikka[1]] == "_":
-                print(f"Ladataan... {self.tutkittavat_paikat.index(paikka)+1}/{len(self.tutkittavat_paikat)}")
+                print(f"Ladataan... {round((self.tutkittavat_paikat.index(paikka) / len(self.tutkittavat_paikat)) * 100)}%")
                 self.lauta[paikka[0]][paikka[1]] = self.maksivoitava
 
                 varatut_paikat_kopio = self.varatut_paikat[:]
@@ -140,16 +140,18 @@ class MiniMax():
                 
                 if False:
                     self.tulosta_lauta()
+                    print(f"koordinaatit: {paikka}")
                     print(f"Siirron arvo: {siirron_arvo}")
+                    print(paras_arvo, siirron_arvo, paras_arvo>siirron_arvo)
                     input()
 
                 self.lauta[paikka[0]][paikka[1]] = "_"
-
-                if siirron_arvo >= 10**5 - 1:
-                    print("voitto maksimoitava")
+                
+                if siirron_arvo >= 10**5:
+                    print("voitto maksimoitava 1 paassa")
                     return self.voitto_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
-                elif siirron_arvo <= -10**5 + 2:
-                    print("voitto minimoitava")
+                elif siirron_arvo <= -10**5 + 1:
+                    print("voitto minimoitava 1 paassa")
                     return self.voitto_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
 
                 if siirron_arvo > paras_arvo:
@@ -192,7 +194,6 @@ class MiniMax():
                     loydot += 1
 
                     if loydot == 5:
-                        self.tulosta_lauta()
                         return tarkistettava
                 else:
                     loydot = 0
@@ -206,7 +207,6 @@ class MiniMax():
                     loydot += 1
 
                     if loydot == 5:
-                        self.tulosta_lauta()
                         return tarkistettava
                 else:
                     loydot = 0
@@ -220,7 +220,6 @@ class MiniMax():
                     loydot += 1
 
                     if loydot == 5:
-                        self.tulosta_lauta()
                         return tarkistettava
                 else:
                     loydot = 0
@@ -229,13 +228,11 @@ class MiniMax():
         loydot = 0
         for i in range(-4, 5):
 
-            if x + i >= 0 and y + i >= 0 and x + i < self.n and y + i < self.n - 1:
-                #print(x + i, y - i)
+            if x - i >= 0 and y + i >= 0 and x - i < self.n and y + i < self.n:
                 if self.lauta[x - i][y + i] == tarkistettava:
                     loydot += 1
 
                     if loydot == 5:
-                        self.tulosta_lauta()
                         return tarkistettava
                 else:
                     loydot = 0
@@ -274,10 +271,12 @@ class MiniMax():
             self.voitto_siirto = (paikka[0], paikka[1])
             self.voitto_nappi = voitto
             self.voitto_loytynyt = True
+
             if voitto == self.maksivoitava:
-                print(10**5 - (self.alkuperainen_syvyys - syvyys))
+                #print(10**5 - (self.alkuperainen_syvyys - syvyys))
                 return 10**5 - (self.alkuperainen_syvyys - syvyys)
-            print(10**5 - (self.alkuperainen_syvyys - syvyys))
+
+            #print(10**5 - (self.alkuperainen_syvyys - syvyys))
             return -10**5 + (self.alkuperainen_syvyys - syvyys)
 
         if syvyys == 0:

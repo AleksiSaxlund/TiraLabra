@@ -21,4 +21,4 @@ Pyrin korjaamaan *valitse_paras_siirto* funktion, jossa ongelmat ilmeisesti ovat
 
 ## Käytetty aikaa
 
-Aikaa käytetty noin 2 tunti.
+Aikaa käytetty noin 2 tuntia.

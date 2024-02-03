@@ -7,7 +7,7 @@ class PelilautaTesti(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.pelilaudat = Pelilaudat().pelilaudat
-        self.n = 25
+        self.n = 20
 
     def test_voitto_1_paassa_X(self):
         lauta = self.pelilaudat["voitto_1_paassa_X"]
@@ -97,4 +97,4 @@ class PelilautaTesti(unittest.TestCase):
 
         siirrot.append(minimax.valitse_paras_siirto())
 
-        self.assertEqual(siirrot, [((0, 2), True, (0, 2), 'O'), ((0, 3), True, (0, 3), 'O')])
+        self.assertEqual(siirrot, [((0, 3), True, (0, 4), 'O'), ((0, 4), True, (0, 4), 'O')])

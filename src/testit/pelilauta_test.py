@@ -9,10 +9,10 @@ class PelilautaTesti(unittest.TestCase):
 
     def test_siirto_toimii(self):
         self.pelilauta.siirto("3 5", "X")
-        self.pelilauta.siirto("3 24", "O")
+        self.pelilauta.siirto("3 20", "O")
 
         self.assertEqual(self.pelilauta.lauta[2], ['_', '_', '_', '_', 'X', '_', '_', '_', '_',
-                         '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', 'O', '_'])
+                         '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', 'O'])
 
     def test_ei_mene_rajojen_yli(self):
         returnit = []
@@ -29,7 +29,7 @@ class PelilautaTesti(unittest.TestCase):
         returnit.append(self.pelilauta.siirto("16 5", "X")[0])
 
         self.assertEqual((self.pelilauta.lauta[15], returnit), (['_', '_', '_', '_', 'X', '_', '_', '_', '_',
-                         '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_'], [True, False, False]))
+                         '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_'], [True, False, False]))
 
     def test_virheelliset_syotteet(self):
         returnit = []
