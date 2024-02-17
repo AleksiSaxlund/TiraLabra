@@ -78,3 +78,12 @@ class Pelilauta():
                             return True, x, y
 
         return False, None, None
+
+    def tekoalyn_siirto(self, x :int, y: int, vihu: str):
+        """Tekee siirron tekoälyn puolesta.
+
+        Args:
+            x (int): x-koordinaatti
+            y (int): y-koordinaatti
+        """
+        self.lauta[x][y] = vihu

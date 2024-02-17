@@ -13,6 +13,7 @@ class PelilautaTesti(unittest.TestCase):
         lauta = self.pelilaudat["voitto_1_paassa_X"]
         
         minimax = MiniMax(lauta, "O")
+        minimax.ensimmainen_siirto = False
 
         for x in range(self.n):
             for y in range(self.n):
@@ -25,6 +26,7 @@ class PelilautaTesti(unittest.TestCase):
         lauta = self.pelilaudat["voitto_1_paassa_O"]
         
         minimax = MiniMax(lauta, "X")
+        minimax.ensimmainen_siirto = False
 
         for x in range(self.n):
             for y in range(self.n):
@@ -37,6 +39,7 @@ class PelilautaTesti(unittest.TestCase):
         lauta = self.pelilaudat["estaa_voiton_1_paassa_X"]
         
         minimax = MiniMax(lauta, "O")
+        minimax.ensimmainen_siirto = False
 
         for x in range(self.n):
             for y in range(self.n):
@@ -49,6 +52,7 @@ class PelilautaTesti(unittest.TestCase):
         lauta = self.pelilaudat["estaa_voiton_1_paassa_O"]
         
         minimax = MiniMax(lauta, "X")
+        minimax.ensimmainen_siirto = False
 
         for x in range(self.n):
             for y in range(self.n):
@@ -61,6 +65,7 @@ class PelilautaTesti(unittest.TestCase):
         lauta = self.pelilaudat["voitto_2_paassa_X"]
         
         minimax = MiniMax(lauta, "O")
+        minimax.ensimmainen_siirto = False
 
         for x in range(self.n):
             for y in range(self.n):
@@ -82,6 +87,7 @@ class PelilautaTesti(unittest.TestCase):
         lauta = self.pelilaudat["voitto_2_paassa_O"]
 
         minimax = MiniMax(lauta, "X")
+        minimax.ensimmainen_siirto = False
 
         for x in range(self.n):
             for y in range(self.n):

@@ -51,7 +51,7 @@ class PeliMoottori():
             hyvaksytty, x, y = self.pelilauta.siirto(syote, self.pelaaja)
 
             if hyvaksytty:
-                self.tekoaly.lisaa_varattu_paikka(x, y)
+                self.tekoaly.lisaa_varattu_paikka(x-1, y-1)
                 break
 
             onnistunut = False
@@ -62,12 +62,12 @@ class PeliMoottori():
         print(tekoalyn_siirto[0], tekoalyn_siirto[1])
 
         self.tekoaly.lisaa_varattu_paikka(
-            tekoalyn_siirto[0] + 1, tekoalyn_siirto[1] + 1)
+            tekoalyn_siirto[0], tekoalyn_siirto[1])
         print("aika", time() - alku)
         print("loytynyt voitto?", loytynyt)
         print("voitto siirto:", voitto_siirto, "napille:", voitto_nappi)
 
-        self.pelilauta.siirto(f"{tekoalyn_siirto[0]+1} {tekoalyn_siirto[1]+1}", self.pelilauta.vihu)
+        self.pelilauta.tekoalyn_siirto(tekoalyn_siirto[0], tekoalyn_siirto[1], self.pelilauta.vihu)
 
     def voiton_tarkistin(self):
         """Tarkastaa onko pelilaudalle tullut voittoa. Viimeisimmäksi pelatun nappulan kohdalta.
