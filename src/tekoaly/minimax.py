@@ -113,6 +113,9 @@ class MiniMax():
         paras_arvo = -inf
         paras_siirto = (-1, -1)
         syvyys = 3
+        alpha = -inf
+        beta = inf
+
         self.alkuperainen_syvyys = syvyys
         self.loydetty = inf
         self.asd = 0
@@ -135,7 +138,7 @@ class MiniMax():
                 tutkittavat_paikat_kopio = self.lisaa_tutkittavat_paikat(self.tutkittavat_paikat.copy(),
                                                                          varatut_paikat_kopio, False)
 
-                siirron_arvo = self.minimax(self.lauta, syvyys, -inf, inf, self.vuoro, paikka,
+                siirron_arvo = self.minimax(self.lauta, syvyys, alpha, beta, self.vuoro, paikka,
                                             tutkittavat_paikat_kopio, varatut_paikat_kopio)
                 
                 if False:
@@ -155,6 +158,7 @@ class MiniMax():
                     return self.voitto_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
 
                 if siirron_arvo > paras_arvo:
+                    alpha = siirron_arvo
                     paras_arvo = siirron_arvo
                     paras_siirto = paikka
 
