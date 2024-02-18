@@ -44,14 +44,22 @@ class PeliMoottori():
     def pelaajan_vuoro(self):
         """Kysyy pelaajalta syötettä niin kauan kunnes saa laillisen syötteen.
         """
+
+        #
+        # KAIKKI KOORDINAATIT SYÖTETÄÄN TEKOÄLYLLE NOLLASTA INDEKSOITUINA!!!
+        # KAIKKI KOORDINAATIT TULEE TEKOÄLYLTÄ NOLLASTA INDEKSOITUINA!!!
+        # PELILAUTA TEKEE KAIKKI MUUNNOKSET INDEKSOINNIN MUUTOKSISTA!!!
+        #
         onnistunut = True
         while True:
             syote = self.kayttoliittyma.pelaajan_siirto_syote(onnistunut)
+            if syote == "asd":
+                self.tekoaly.tulosta_lauta()
 
             hyvaksytty, x, y = self.pelilauta.siirto(syote, self.pelaaja)
 
             if hyvaksytty:
-                self.tekoaly.lisaa_varattu_paikka(x-1, y-1)
+                self.tekoaly.lisaa_varattu_paikka(x, y)
                 break
 
             onnistunut = False

@@ -1,5 +1,6 @@
 from math import inf
 from collections import deque
+from random import choice
 from tekoaly.heurestiikka import arvioi
 
 
@@ -73,29 +74,28 @@ class MiniMax():
         """
         paikka = viimeksi_pelattu
 
+        if ensimmainen:
+            for i in range(-2, 3, 2):
+                for j in range(-2, 3, 2):
+                    if paikka[0] + i >= 0 and paikka[1] + j >= 0 and paikka[0] + i < self.n - 1 and paikka[1] + j < self.n - 1:
+                        if (paikka[0] + i, paikka[1] + j) in tutkittavat_paikat:
+                            tutkittavat_paikat.remove(
+                                (paikka[0] + i, paikka[1] + j))
+                        if self.lauta[paikka[0] + i][paikka[1] + j] == "_":
+                            tutkittavat_paikat.appendleft(
+                                (paikka[0] + i, paikka[1] + j))
+
         for i in range(-1, 2):
             for j in range(-1, 2):
                 if paikka[0] + i >= 0 and paikka[1] + j >= 0 and paikka[0] + i < self.n - 1 and paikka[1] + j < self.n - 1:
                     if (paikka[0] + i, paikka[1] + j) in tutkittavat_paikat:
                         tutkittavat_paikat.remove(
                             (paikka[0] + i, paikka[1] + j))
-                    if self.lauta[paikka[0] + i][paikka[1] + j] == "_" :#and #(i != 0 and j != 0):
+                    if self.lauta[paikka[0] + i][paikka[1] + j] == "_":
                         tutkittavat_paikat.appendleft(
                             (paikka[0] + i, paikka[1] + j))
 
-        if ensimmainen:
-            for i in range(-2, 3, 2):
-                for j in range(-2, 3, 2):
-
-                    if paikka[0] + i >= 0 and paikka[1] + j >= 0 and paikka[0] + i < self.n - 1 and paikka[1] + j < self.n - 1:
-                        if (paikka[0] + i, paikka[1] + j) in tutkittavat_paikat:
-                            tutkittavat_paikat.remove(
-                                (paikka[0] + i, paikka[1] + j))
-                        if self.lauta[paikka[0] + i][paikka[1] + j] == "_" :#and (i != 0 and j != 0):
-                            tutkittavat_paikat.appendleft(
-                                (paikka[0] + i, paikka[1] + j))
-
-            print(tutkittavat_paikat)
+        #print(tutkittavat_paikat)
 
         return tutkittavat_paikat
 
@@ -114,15 +114,28 @@ class MiniMax():
         self.loydetty = inf
         self.asd = 0
 
-        # Tekoälyn ensimmäinen siirto kovakoodattu tulemaan aina keskelle.
-        if False:
+        self.print = ""
+
+        # Tekoälyn ensimmäinen siirto kovakoodattu tulemaan aina keskelle tai pelaajan lähelle.
+        if self.ensimmainen_siirto:
             self.ensimmainen_siirto = False
 
-            if self.pelatut_siirrot == 1:
-                return ((8, 8),
-                        self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi)
+            if len(self.tutkittavat_paikat) > 0:
+                paikka = choice(self.tutkittavat_paikat)
+                return paikka, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
             else:
                 return ((self.n // 2, self.n // 2), self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi)
+
+        # Tarkistaa onko voittoa yhden siirron päässä.
+        
+        for paikka in self.tutkittavat_paikat:
+            if self.lauta[paikka[0]][paikka[1]] == "_":
+                self.lauta[paikka[0]][paikka[1]] = self.maksivoitava
+                voitto = self.voiton_tarkistin(paikka[0], paikka[1])
+                self.lauta[paikka[0]][paikka[1]] = "_"
+
+            if voitto == self.maksivoitava:
+                return paikka, True, paikka, self.maksivoitava
 
         # Siirron valitsija itsessään. Käy läpi kaikki tutkittavat paikat ja valitsee niistä parhaan.
         for paikka in self.tutkittavat_paikat:
@@ -137,34 +150,25 @@ class MiniMax():
                 siirron_arvo = self.minimax(self.lauta, syvyys, alpha, beta, self.vuoro, paikka,
                                             tutkittavat_paikat_kopio)
                 
-                if True:
+                if False:
                     self.tulosta_lauta()
                     print(f"koordinaatit: {paikka}")
                     print(f"Siirron arvo: {siirron_arvo}")
                     print(paras_arvo, siirron_arvo, paras_arvo>siirron_arvo)
 
                 self.lauta[paikka[0]][paikka[1]] = "_"
-                
-                if siirron_arvo >= 10**5:
-                    print("voitto maksimoitava 1 paassa")
-                    #input("asd")
-                    return paikka, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
-                elif siirron_arvo <= -10**5 + 1:
-                    print("voitto minimoitava 1 paassa")
-                    #input("asd")
-                    return paikka, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
-
                 if siirron_arvo > paras_arvo:
                     alpha = siirron_arvo
                     paras_arvo = siirron_arvo
                     paras_siirto = paikka
 
-                print(f"paras siirto: {paras_siirto}")
-                #input()
+                if False:
+                    print(f"paras siirto: {paras_siirto}")
+                    self.print = input()
         return paras_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
 
+    # KORJATTAVA
     def siirtoja_jaljella(self, syvyys: int):
-        # KORJATTAVA
         """Tarkistaa, että onko enää mahdollista tehdä siirtoja.
 
         Args:
@@ -186,6 +190,10 @@ class MiniMax():
 
         if tarkistettava == "_":
             return False
+            self.tulosta_lauta()
+            print("virheellinen tarkistettava")
+            print(x, y)
+            input()
 
         # vaaka
         loydot = 0
@@ -247,7 +255,10 @@ class MiniMax():
         pass
         for i in range(self.n):
             for j in range(self.n):
-                print(self.lauta[i][j], end=" ")
+                if (i, j) in self.tutkittavat_paikat:
+                    print("=", end=" ")
+                else:
+                    print(self.lauta[i][j], end=" ")
             print()
 
     def minimax(self, lauta: list, syvyys: int, alpha: int, beta: int, vuoro: int, paikka: tuple,
@@ -275,17 +286,13 @@ class MiniMax():
             self.voitto_loytynyt = True
 
             if voitto == self.maksivoitava:
-                #print(10**5 - (self.alkuperainen_syvyys - syvyys))
                 return 10**5 - (self.alkuperainen_syvyys - syvyys)
-
-            #print(10**5 - (self.alkuperainen_syvyys - syvyys))
             return -10**5 + (self.alkuperainen_syvyys - syvyys)
 
         if syvyys == 0:
             if vuoro == 1:
                 return arvioi(self.lauta, self.maksivoitava)
-            else:
-                return - arvioi(self.lauta, self.minivoitava)
+            return - arvioi(self.lauta, self.minivoitava)
 
         if not self.siirtoja_jaljella(syvyys):
             return 0
@@ -311,7 +318,7 @@ class MiniMax():
                     alpha = max(alpha, arvo)
 
                     lauta[paikka[0]][paikka[1]] = "_"
-                    if beta <= alpha:# or abs(paras) >= 10**5 - self.alkuperainen_syvyys:
+                    if beta <= alpha:
                         break
 
             return paras
@@ -337,7 +344,7 @@ class MiniMax():
                     beta = min(beta, arvo)
 
                     lauta[paikka[0]][paikka[1]] = "_"
-                    if beta <= alpha:# or abs(paras) >= 10**5 - self.alkuperainen_syvyys:
+                    if beta <= alpha:
                         break
             return paras
 
