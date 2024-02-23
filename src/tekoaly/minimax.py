@@ -2,6 +2,7 @@ from math import inf
 from collections import deque
 from random import choice
 from tekoaly.heurestiikka import arvioi
+from tekoaly.heurestiikka_dev import Heurestiikka
 
 
 class MiniMax():
@@ -13,7 +14,7 @@ class MiniMax():
         self.pelatut_siirrot = self.n * self.n
         self.pelatut_siirrot = 0
         self.lauta = lauta
-        self.varatut_paikat = []
+        self.viimeisin_siirto = (-1, -1)
         self.tutkittavat_paikat = deque()
 
         self.ensimmainen_siirto = True
@@ -25,6 +26,8 @@ class MiniMax():
         else:
             self.maksivoitava = "X"
             self.vuoro = -1
+        
+        self.heurestiikka = Heurestiikka()
         
         if False:
             for x in range(self.n):
@@ -137,6 +140,11 @@ class MiniMax():
             if voitto == self.maksivoitava:
                 return paikka, True, paikka, self.maksivoitava
 
+        if self.viimeisin_siirto != (-1, -1):
+            arvo = self.heurestiikka.paivita_arvio(self.lauta, self.viimeisin_siirto[0],
+                                                   self.viimeisin_siirto[1], self.maksivoitava)
+            self.heurestiikka.paivita_arvo(arvo)
+
         # Siirron valitsija itsessään. Käy läpi kaikki tutkittavat paikat ja valitsee niistä parhaan.
         for paikka in self.tutkittavat_paikat:
             if self.lauta[paikka[0]][paikka[1]] == "_":
@@ -164,7 +172,10 @@ class MiniMax():
 
                 if False:
                     print(f"paras siirto: {paras_siirto}")
+                    print(f"paras arvo: {paras_arvo}")
                     self.print = input()
+
+        self.viimeisin_siirto = paras_siirto
         return paras_siirto, self.voitto_loytynyt, self.voitto_siirto, self.voitto_nappi
 
     # KORJATTAVA
@@ -256,7 +267,8 @@ class MiniMax():
         for i in range(self.n):
             for j in range(self.n):
                 if (i, j) in self.tutkittavat_paikat:
-                    print("=", end=" ")
+                    print(self.lauta[i][j], end=" ")
+                    #print("=", end=" ")
                 else:
                     print(self.lauta[i][j], end=" ")
             print()
@@ -291,8 +303,8 @@ class MiniMax():
 
         if syvyys == 0:
             if vuoro == 1:
-                return arvioi(self.lauta, self.maksivoitava)
-            return - arvioi(self.lauta, self.minivoitava)
+                return arvioi(lauta, self.maksivoitava)
+            return - arvioi(lauta, self.minivoitava)
 
         if not self.siirtoja_jaljella(syvyys):
             return 0
