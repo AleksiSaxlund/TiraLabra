@@ -103,4 +103,4 @@ class PelilautaTesti(unittest.TestCase):
 
         siirrot.append(minimax.valitse_paras_siirto())
 
-        self.assertEqual(siirrot, [((0, 3), True, (0, 4), 'O'), ((0, 4), True, (0, 4), 'O')])
+        self.assertEqual(siirrot, [((0, 3), True, (0, 3), 'O'), ((0, 4), True, (0, 4), 'O')])

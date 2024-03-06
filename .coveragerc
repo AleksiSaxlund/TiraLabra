@@ -1,3 +1,3 @@
 [run]
 source = src
-omit = src/**/__init__.py, src/testit/**, src/peli/kayttoliittyma.py, src/peli/pelimoottori.py, src/main.py, src/tekoaly/heurestiikka_temp.py
+omit = src/**/__init__.py, src/testit/**, src/peli/kayttoliittyma.py, src/peli/pelimoottori.py, src/main.py, src/tekoaly/heurestiikka_dev.py

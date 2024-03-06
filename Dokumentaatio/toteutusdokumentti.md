@@ -80,10 +80,8 @@ sequenceDiagram
 ## Puutteet ja parannusehdotukset
 
 1. Tekoälyn pelitaidoissa on parantamisen varaa ja se on myös hitaampi kuin toivoisin. Tilanteesta riippuen jopa liian hidas.
-2. Vaikeusasteen voisi tehdä muutettavaksi syvyyttä kasvattamalla ja pienentämällä. Nyt kuitenkin syvyyden kasvatus tekee tekoälystä liian hitaan.
-3. AI vs AI pelitila jäi tekemättä.
-4. Käyttöliittymä ei ole kovin hyvä.
-5. On vielä bugeja. Kaikki testit eivät mene läpi.
+2. Vaikeusasteen voisi tehdä muutettavaksi syvyyttä kasvattamalla ja pienentämällä. Nyt kuitenkin syvyyden kasvatus tekee tekoälystä hitaan.
+3. Graafinen käyttäliittymä olisi kiva.
 
 ## Aika- ja tilavaativuudet
 
@@ -93,7 +91,7 @@ Suorituskykytestauksen löytää [testausdokumentin](./testausdokumentti.md) *Su
 
 ## Kielimallien käyttö
 
-Kielimalleja käytettiin työn alussa asiaan perehtymiseen ja projektin hahmotteluun erittäin korkealla tasolla. Kaikki koodi sekä dokumentaatio on kuitenkin tehty täysin ilman kielimalleja.
+Kielimalleja käytettiin työn alussa asiaan perehtymiseen ja projektin hahmotteluun korkealla tasolla. Kaikki koodi sekä dokumentaatio on kuitenkin tehty täysin ilman kielimalleja.
 
 ## Lähteet
 

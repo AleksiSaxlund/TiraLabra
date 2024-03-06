@@ -19,3 +19,5 @@ Käyttohjeet löydät [täältä](./Dokumentaatio/kayttoohje.md)
 - [Viikkoraportti 4](/Dokumentaatio/Viikkoraportit/viikkoraportti4.md)
 - [Viikkoraportti 5](/Dokumentaatio/Viikkoraportit/viikkoraportti5.md)
 - [Viikkoraportti 6](/Dokumentaatio/Viikkoraportit/viikkoraportti6.md)
+- [Viikkoraportti 7](/Dokumentaatio/Viikkoraportit/viikkoraportti7.md)
+s

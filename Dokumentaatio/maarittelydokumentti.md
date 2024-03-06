@@ -4,7 +4,7 @@ Jatkan projektia periodi 1 toteutuksesta.
 
 ## Projektin määritelmä
 
-Projektin tarkoituksena olisi luoda tekoäly 25x25 ristinollalle, jossa voittoehtona on 5:n rivi. Peliä voisi pelata tekoälyä vastaan ja jos aika sallii niin voisi lisätä myös AI vs AI pelitilan.
+Projektin tarkoituksena olisi luoda tekoäly 20x20 ristinollalle, jossa voittoehtona on 5:n rivi. Peliä voisi pelata tekoälyä vastaan ja jos aika sallii niin voisi lisätä myös AI vs AI pelitilan.
 
 ## Projektin kielet
 

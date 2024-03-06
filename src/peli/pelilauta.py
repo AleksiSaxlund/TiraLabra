@@ -87,3 +87,4 @@ class Pelilauta():
             y (int): y-koordinaatti
         """
         self.lauta[x][y] = vihu
+        self.viimeisin_siirto = x, y
