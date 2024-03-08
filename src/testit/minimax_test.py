@@ -104,3 +104,47 @@ class PelilautaTesti(unittest.TestCase):
         siirrot.append(minimax.valitse_paras_siirto())
 
         self.assertEqual(siirrot, [((0, 3), True, (0, 3), 'O'), ((0, 4), True, (0, 4), 'O')])
+    
+    def test_pelaa_voiton_X(self):
+        """Toimii vain kun syvyys = 3. Muuten voitto löydetään eri vaiheessa ja tarkastus menee pieleen.
+        """
+        lauta = self.pelilaudat["pelaa_voiton_X"]
+
+        minimax = MiniMax(lauta, "O")
+        minimax.ensimmainen_siirto = False
+
+        for x in range(self.n):
+            for y in range(self.n):
+                if lauta[x][y] == "X" or lauta[x][y] == "O":
+                    minimax.lisaa_varattu_paikka(x, y)
+        
+        siirrot = []
+
+        #Tekoälyn siirto
+        siirto = minimax.valitse_paras_siirto()
+        siirrot.append((siirto[0], siirto[1]))
+        minimax.lauta[siirto[0][0]][siirto[0][1]] = "X"
+        minimax.lisaa_varattu_paikka(siirto[0][0], siirto[0][1]) #7 10
+
+        #Pelaajan siirto
+        minimax.lauta[4][8] = "O"
+        minimax.lisaa_varattu_paikka(4, 8)
+
+        #Tekoälyn siirto
+        siirto = minimax.valitse_paras_siirto()
+        siirrot.append((siirto[0], siirto[1]))
+        minimax.lauta[siirto[0][0]][siirto[0][1]] = "X"
+        minimax.lisaa_varattu_paikka(siirto[0][0], siirto[0][1]) #7 11
+
+        #Pelaajan siirto
+        minimax.lauta[7][12] = "O"
+        minimax.lisaa_varattu_paikka(7, 12)
+
+        #Tekoälyn siirto
+        siirto = minimax.valitse_paras_siirto()
+        siirrot.append((siirto[0], siirto[1]))
+        minimax.lauta[siirto[0][0]][siirto[0][1]] = "X"
+        minimax.lisaa_varattu_paikka(siirto[0][0], siirto[0][1]) # 7 7
+
+        oikeat_siirrot = [((7, 10), False), ((7, 11), True), ((7, 7), True)]
+        self.assertEqual(siirrot, oikeat_siirrot)

@@ -19,16 +19,16 @@ def arvioi(lauta: list, arvioitava: str):
     vaaka = arvioi_vaakasuorat(lauta, n, arvioitava, vastustaja)
     if vaaka == 10**4:
         return 10**4
-    
+
     pysty = arvioi_pystysuorat(lauta, n, arvioitava, vastustaja)
     if pysty == 10**4:
         return 10**4
-    
+
     diagonaali_vasemmalta_alas = arvioi_diagonaalit_vasemmalta_alas(
         lauta, n, arvioitava, vastustaja)
     if diagonaali_vasemmalta_alas == 10**4:
         return 10**4
-    
+
     diagonaali_vasemmalta_ylos = arvioi_diagonaalit_vasemmalta_ylos(
         lauta, n, arvioitava, vastustaja)
     if diagonaali_vasemmalta_ylos == 10**4:
@@ -40,7 +40,7 @@ def arvioi(lauta: list, arvioitava: str):
 
 def arvioi_vaakasuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
     """Arvioi annetun pelilaudan vaakasuorat rivit. Jos löydetty rivi on auki molemmista päistä, 
-        niin sen arvo kerrotaan kahdella. Toisesta päästä auki olevan rivin arvo palautetaan sellaisenaan.
+        sen arvo kerrotaan kahdella. Toisesta päästä auki olevan rivin arvo palautetaan sellaisenaan.
         Molemmista päistä suljettu rivi, jonka pituus on pienempi kuin viisi ei anna yhtään arvoa.
 
     Args:
@@ -87,9 +87,7 @@ def arvioi_vaakasuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
 
 
 def arvioi_pystysuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
-    """Arvioi annetun pelilaudan pystysuorat rivit. Jos löydetty rivi on auki molemmista päistä, 
-        niin sen arvo kerrotaan kahdella. Toisesta päästä auki olevan rivin arvo palautetaan sellaisenaan.
-        Molemmista päistä suljettu rivi, jonka pituus on pienempi kuin viisi ei anna yhtään arvoa.
+    """Arvioi annetun pelilaudan pystysuorat rivit.
 
     Args:
         lauta (list): Arvioitava pelilauta
@@ -135,7 +133,8 @@ def arvioi_pystysuorat(lauta: list, n: int, arvioitava: str, vastustaja: str):
 
 def arvioi_diagonaalit_vasemmalta_alas(lauta: list, n: int, arvioitava: str, vastustaja: str):
     """Arvioi kaikki diagonaalirivit, jotka alkaa vasemmalta ja menee alaspäin, joissa voi kumminkin olla voittorivi.
-        Iteraattorit käy läpi kaikki vasemman reunan, sekä ylimmän rivin alkiot, joista voi lähteä sopivia diagonaalirivejä.
+        Iteraattorit käy läpi kaikki vasemman reunan, sekä ylimmän rivin alkiot,
+        joista voi lähteä sopivia diagonaalirivejä.
         Tämän jälkeen se kutsuu apufunktion, joka käy läpi diagonaalirivin.
         Apufunktioista saadut arvon summataan ja lisätään koko laudan arvoon.
 
@@ -166,9 +165,7 @@ def arvioi_diagonaalit_vasemmalta_alas(lauta: list, n: int, arvioitava: str, vas
 
 
 def arvioi_yksi_diagonaali_vasemmalta_alas(lauta: list, n: int, aloitus_x: int, aloitus_y: int, arvioitava: str, vastustaja: str):
-    """Apufunktio, joka arvioi yksittäisen diagonaalirivin arvon. Jos löydetty rivi on auki molemmista päistä, 
-        niin sen arvo kerrotaan kahdella. Toisesta päästä auki olevan rivin arvo palautetaan sellaisenaan.
-        Molemmista päistä suljettu rivi, jonka pituus on pienempi kuin viisi ei anna yhtään arvoa.
+    """Apufunktio, joka arvioi yksittäisen diagonaalirivin arvon.
 
     Args:
         lauta (list): Pelilauta
@@ -250,9 +247,7 @@ def arvioi_diagonaalit_vasemmalta_ylos(lauta: list, n: int, arvioitava: str, vas
 
 
 def arvioi_yksi_diagonaali_vasemmalta_ylos(lauta: list, n: int, aloitus_x: int, aloitus_y: int, arvioitava: str, vastustaja: str):
-    """Apufunktio, joka arvioi yksittäisen diagonaalirivin arvon. Jos löydetty rivi on auki molemmista päistä, 
-        niin sen arvo kerrotaan kahdella. Toisesta päästä auki olevan rivin arvo palautetaan sellaisenaan.
-        Molemmista päistä suljettu rivi, jonka pituus on pienempi kuin viisi ei anna yhtään arvoa.
+    """Apufunktio, joka arvioi yksittäisen diagonaalirivin arvon.
 
     Args:
         lauta (list): Pelilauta

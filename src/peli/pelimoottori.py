@@ -23,7 +23,6 @@ class PeliMoottori():
         while True:
             self.kayttoliittyma.tulosta_pelilauta(self.pelilauta.lauta)
             voitto = self.voiton_tarkistin()
-            print(voitto)
             if voitto in ("X", "O"):
                 print("Voitto", voitto)
                 break

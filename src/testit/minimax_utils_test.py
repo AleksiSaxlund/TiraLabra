@@ -131,3 +131,23 @@ class MinimaxUtilsTesti(unittest.TestCase):
         loydot = self.minimax.voiton_tarkistin(0, 0)
 
         self.assertEqual(loydot, False)
+    
+    def test_laudalla_ei_tilaa(self):
+        
+        for i in range(len(self.minimax.lauta) ** 2):
+            self.minimax.pelatut_siirrot += 1
+        
+        tilaa = self.minimax.siirtoja_jaljella(2)
+
+        self.assertEqual(tilaa, False)
+    
+    def test_laudalla_tilaa(self):
+        
+        for i in range((len(self.minimax.lauta) ** 2) - 7):
+            self.minimax.pelatut_siirrot += 1
+        
+        tilaa = self.minimax.siirtoja_jaljella(3)
+
+        self.assertEqual(tilaa, True)
+
+    
