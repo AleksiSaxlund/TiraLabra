@@ -3,7 +3,13 @@ from invoke import task # pylint: disable=import-error
 @task
 def test_all(ctx):
     "Run pytests including slow tests"
-    ctx.run("pytest src")
+    ctx.run("pytest src/testit/heurestiikka_test.py src/testit/minimax_utils_test.py src/testit/pelilauta_test.py "
+            "src/testit/minimax_test.py")
+
+@task
+def test_four(ctx):
+    "Run pytests with depth 4"
+    ctx.run("pytest src/testit/minimax_tehokas_test.py")
 
 @task
 def test(ctx):
